@@ -7,7 +7,7 @@ import {
 } from '@material-ui/pickers';
 
 const TimeRange = () => {
-// The first commit of Material-UI
+
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
@@ -22,7 +22,7 @@ const TimeRange = () => {
                 format="dd/MM/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Date picker inline"
+                label="Mood date"
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{

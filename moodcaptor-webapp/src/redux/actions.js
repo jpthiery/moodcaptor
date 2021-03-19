@@ -1,14 +1,16 @@
 import {
-    GROUP_SELECTED,
-    MOOD_LEVEL_SELECTED
+    REQUEST_GROUP_LIST,
+    RESPONSE_GROUP_LIST
 } from "./actionTypes"
 
-export const moodLevelSelected = (level) => ({
-    type: MOOD_LEVEL_SELECTED,
-    payload: level
+export const fetchingGroup = () => ({
+    type: REQUEST_GROUP_LIST,
+    payload: {}
 })
 
-export const groupSelected = (groupId) => ({
-    type: GROUP_SELECTED,
-    payload: groupId
+export const groupReceive = ( body) => ({
+    type: RESPONSE_GROUP_LIST,
+    payload: {
+        body: body
+    }
 })

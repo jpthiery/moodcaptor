@@ -7,20 +7,20 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 const Group = ({groups, groupSelected}) => {
 
-    const [selectedItem, setSelectedItem] = useState(groups[0].id)
+    const defaultSelectedGroup = groups.length > 0 ? groups[0].id : ""
+    const [selectedItem, setSelectedItem] = useState(defaultSelectedGroup)
 
     const handleGroupChanged = (event) => {
         groupSelected(event.target.value)
         setSelectedItem(event.target.value)
     }
 
-    return (
+    return groups.length > 0 ? (
         <Box display="flex" flexDirection="row" with="100%">
             <Box>
                 <Typography component="h4" >Group :</Typography>
             </Box>
             <Box with="100%">
-
                 <Select onChange={e => handleGroupChanged(e)} value={selectedItem} defaultValue={selectedItem}>
                     {
                         groups.map(
@@ -32,7 +32,7 @@ const Group = ({groups, groupSelected}) => {
                 </Select>
             </Box>
         </Box>
-    )
+    ) : (<span />)
 }
 
 export default Group
