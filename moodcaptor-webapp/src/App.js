@@ -1,34 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 
-import Group from './components/group/Group'
+import SurveyForm from './containers/SurveyForm'
+import {React, useEffect} from "react";
+import {Provider} from "react-redux";
+import {fetchGroups} from './redux/middleware_actions'
+
+import store from "./redux/store";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. Yeah
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
-          <Group groups={[
-            {
-              "key": "first",
-              "value": "An awersome group"
-            }
-          ]}/>
-      </header>
-    </div>
-  );
+    useEffect(() => store.dispatch(fetchGroups()))
+    return (
+        <div className="App">
+            <Provider store={store}>
+                < SurveyForm/>
+            </Provider>
+        </div>
+    );
 }
 
 export default App;
