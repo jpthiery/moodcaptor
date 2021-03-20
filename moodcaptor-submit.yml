@@ -3,8 +3,20 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-  moodcaptor-submit:
-    lang: python3
-    handler: ./moodcaptor-submit
-    image: moodcaptor-submit
+  moodcaptor-webapp:
+    lang: site-nginx
+    handler: ./moodcaptor-webapp
+    image: moodcaptor-webapp
+  moodcaptor-handle:
+    lang: python3-multiple
+    handler: ./moodcaptor-backend
+    image: moodcaptor-handle
+    build_args:
+      FUNCTION_NAME: handle
+  moodcaptor-handle-bis:
+    lang: python3-multiple
+    handler: ./moodcaptor-backend
+    image: moodcaptor-handle-bis
+    build_args:
+      FUNCTION_NAME: handle_bis
 
