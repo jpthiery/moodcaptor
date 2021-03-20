@@ -20,7 +20,12 @@ function App() {
           Learn React
         </a>
 
-          <Group/>
+          <Group groups={[
+            {
+              "key": "first",
+              "value": "An awersome group"
+            }
+          ]}/>
       </header>
     </div>
   );

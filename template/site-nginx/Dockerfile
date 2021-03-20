@@ -8,7 +8,7 @@ WORKDIR /tmp
 
 RUN yarn
 
-RUN yarn run build
+RUN yarn build
 
 FROM nginxinc/nginx-unprivileged:mainline
 USER root
