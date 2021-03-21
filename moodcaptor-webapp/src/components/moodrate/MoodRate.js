@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 
-import {Layer, Stage, Star} from "react-konva";
+import {Layer, Stage} from "react-konva";
 
-const MoodRate = ({maxLevel, createRateItem}) => {
+const MoodRate = ({maxLevel, createRateItem, handleRate}) => {
 
     const rateItemsValues = []
     let i = 0
@@ -28,6 +28,7 @@ const MoodRate = ({maxLevel, createRateItem}) => {
             rateItemsValues.push(false)
         }
         setRateItemsState(rateItemsValues)
+        handleRate(rate+1)
     }
 
     const rateItems = rateItemsState.map((isSelected, rate) => createRateItem(

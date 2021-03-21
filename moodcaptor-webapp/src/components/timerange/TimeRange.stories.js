@@ -6,7 +6,7 @@ export default {
     component: TimeRange
 }
 
-const Template = (args) => <TimeRange {...args}/>
+const Template = (args) => <TimeRange {...args} handleDateChanged={date => console.log(date)} />
 
 export const OpenStory = Template.bind({})
 

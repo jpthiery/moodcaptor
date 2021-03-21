@@ -7,7 +7,7 @@ import {
 export function fetchGroups() {
     return dispatch => {
         dispatch(fetchingGroup())
-        fetch("/groups", {
+        fetch("/function/moodcaptor-group-request", {
             method: 'GET',
             headers: {
                 Accept: 'application/json'
@@ -16,6 +16,7 @@ export function fetchGroups() {
             .then(response => {
                 response.json()
                     .then(json => {
+                        console.log(json)
                         dispatch(groupReceive(json))
                     })
             })

@@ -6,13 +6,19 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const TimeRange = () => {
+const TimeRange = ({handleDateChanged}) => {
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const dateFns = new DateFnsUtils();
+    const dateFormat = 'dd/MM/yyyy'
+    let now = new Date();
+    const [selectedDate, setSelectedDate] = React.useState(now);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        handleDateChanged(dateFns.format(date, dateFormat))
     };
+
+    handleDateChanged(dateFns.format(now, dateFormat))
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

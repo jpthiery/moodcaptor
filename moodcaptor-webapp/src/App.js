@@ -1,7 +1,7 @@
 import './App.css';
 
-import SurveyForm from './containers/SurveyForm'
-import {React, useEffect} from "react";
+import SurveyForm from './containers/moodsurvey/SurveyForm'
+import React, {useEffect} from "react";
 import {Provider} from "react-redux";
 import {fetchGroups} from './redux/middleware_actions'
 

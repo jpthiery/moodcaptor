@@ -1,11 +1,11 @@
 import React from "react";
 
 import {createStore} from 'redux'
-import {Provider} from "react-redux";
+import {Provider, connect} from "react-redux";
 
-import rootReducer from '../redux/reducers'
+import rootReducer from '../../redux/reducers'
 
-import SurveyForm from "./SurveyForm";
+import {mapStateToProps, SurveyForm,} from "./SurveyForm";
 
 const newStore = () => createStore(
     rootReducer,
@@ -26,18 +26,25 @@ const newStore = () => createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+const submittedAction = (groupId, day, rate) => dispatch => {dispatch()}
+const SurveyConnected = connect(
+    mapStateToProps,
+    {}
+)(SurveyForm)
+
+
 export default {
     title: 'Survey Form',
     component: SurveyForm,
     argTypes: {
-        handleSelectGroup: {action: 'selected'}
+        submitMood: {action: 'submitted'}
     },
     decorators: [
         story => <Provider store={newStore()}>{story()}</Provider>
     ]
 }
 
-const Template = (args) => <SurveyForm {...args} />
+const Template = (args) => <SurveyConnected {...args} />
 
 export const EmptyStory = Template.bind({})
 
