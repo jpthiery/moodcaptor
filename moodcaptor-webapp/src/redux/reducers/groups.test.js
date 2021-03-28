@@ -1,15 +1,13 @@
 import reducer from "./survey"
 import {groupSelected} from "../actions";
 
-describe('survey reducer', () => {
+describe('groups reducer', () => {
     it('should return initial state', () => {
         expect(reducer(
             undefined,
             {}
         )).toEqual({
-            groupId: "",
-            moodLevel: 3,
-            comment: ""
+            existing: []
         })
     })
     it('should add group selected', function () {

@@ -5,7 +5,7 @@ const initialState = {
     existing: []
 }
 
-export default function (state = initialState, action) {
+const reduce = (state = initialState, action) => {
     switch (action.type) {
         case RESPONSE_GROUP_LIST:
             const payload = action.payload
@@ -18,3 +18,5 @@ export default function (state = initialState, action) {
             return state
     }
 }
+
+export default reduce

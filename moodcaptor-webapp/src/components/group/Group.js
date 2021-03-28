@@ -32,7 +32,7 @@ const Group = ({groups, groupSelected}) => {
                 </Select>
             </Box>
         </Box>
-    ) : (<span />)
+    ) : ("")
 }
 
 export default Group
