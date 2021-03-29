@@ -1,32 +1,21 @@
 import React from "react";
 
 import {createStore} from 'redux'
-import {Provider, connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 
 import rootReducer from '../../redux/reducers'
 
 import {mapStateToProps, SurveyForm,} from "./SurveyForm";
+import {createBrowserHistory} from "history";
 
-const newStore = () => createStore(
-    rootReducer,
-    {
-        groups: {
-            existing: [
-                {
-                    id: "12345qwert",
-                    name: "Keyboard users"
-                },
-                {
-                    id: "pi3145",
-                    name: "Pie adorators"
-                }
-            ]
-        }
-    },
+const history = createBrowserHistory()
+
+const store = preloadedState => createStore(
+    rootReducer(history),
+    preloadedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-const submittedAction = (groupId, day, rate) => dispatch => {dispatch()}
 const SurveyConnected = connect(
     mapStateToProps,
     {}
@@ -39,15 +28,44 @@ export default {
     argTypes: {
         submitMood: {action: 'submitted'}
     },
-    decorators: [
-        story => <Provider store={newStore()}>{story()}</Provider>
-    ]
 }
 
-const Template = (args) => <SurveyConnected {...args} />
+const Template = (args) => {
+    return (
+        <Provider store={store(args.preloadedState)}>
+            <SurveyConnected {...args} />
+        </Provider>
+    )
+}
 
 export const EmptyStory = Template.bind({})
 
 EmptyStory.args = {
+    preloadedState:
+        {
+            groups: {
+                existing: []
+            }
+        }
+}
 
+export const GroupWithTwoItems = Template.bind({})
+
+GroupWithTwoItems.args = {
+
+    preloadedState:
+        {
+            groups: {
+                existing: [
+                    {
+                        id: "123456789",
+                        name: "Pie user groups"
+                    },
+                    {
+                        id: "abcdefghijkl",
+                        name: "Keyboard user groups"
+                    }
+                ]
+            }
+        }
 }

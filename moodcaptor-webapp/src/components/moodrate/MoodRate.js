@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 
 import {Layer, Stage} from "react-konva";
+import Typography from "@material-ui/core/Typography";
 
-const MoodRate = ({maxLevel, initialRate=0, createRateItem, handleRate}) => {
+const MoodRate = ({maxLevel, initialRate = 0, createRateItem, handleRate}) => {
 
     const computeRateItemsValues = (rate) => {
         const rateItemsValues = []
@@ -30,7 +31,7 @@ const MoodRate = ({maxLevel, initialRate=0, createRateItem, handleRate}) => {
         console.log(rate)
         const rateItemsValues = computeRateItemsValues(rate)
         setRateItemsState(rateItemsValues)
-        handleRate(rate+1)
+        handleRate(rate + 1)
     }
 
     const rateItems = rateItemsState.map((isSelected, rate) => createRateItem(
@@ -44,14 +45,14 @@ const MoodRate = ({maxLevel, initialRate=0, createRateItem, handleRate}) => {
     ))
 
     return (
-        <div>
-            <p>Rate :</p>
+        <p>
+            <Typography variant={"body1"} component={"body2"} >Rate :</Typography>
             <Stage width={totalWidth} height={heightItem}>
                 <Layer>
                     {rateItems}
                 </Layer>
             </Stage>
-        </div>
+        </p>
     )
 
 }

@@ -1,9 +1,7 @@
-
 import {gotoStats} from "../../redux/nav.actions";
 import {toast} from "react-toastify";
 
 export const submitMood = (groupId, day, rate) => dispatch => {
-
     fetch(`/function/moodcaptor-submit`, {
         method: 'POST',
         headers: {
@@ -16,12 +14,19 @@ export const submitMood = (groupId, day, rate) => dispatch => {
             rate: rate
         })
     })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw Error(res.statusText)
+            }
+            return res.json()
+        })
         .then(res => {
             dispatch(gotoStats)
-            toast.info(`Your mood had been submitted.`, {
+        })
+        .catch(reason => {
+            toast.error(`Your mood had not been submitted:` + reason, {
                 position: "bottom-center",
-                type: "info",
+                type: "error",
                 autoClose: 5000
             });
         })

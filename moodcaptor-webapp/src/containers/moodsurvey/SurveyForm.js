@@ -8,10 +8,14 @@ import MoodRate from "../../components/moodrate/MoodRate";
 import Button from "@material-ui/core/Button";
 import {Star} from "react-konva";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+
 import {existingGroups} from "../../redux/selectors";
 import {submitMood} from "./actions";
 
-export const SurveyForm = ({groupSelectable, submitMood, testRedirect}) => {
+export const SurveyForm = ({groupSelectable, submitMood}) => {
 
     const [moodDate, setMoodDate] = useState(new Date())
     const initialRate = 0
@@ -55,17 +59,31 @@ export const SurveyForm = ({groupSelectable, submitMood, testRedirect}) => {
     }
 
     const groupInput = groupSelectable.length > 0 ?
-        <p>
-            <Group groupSelected={handleGroup} groups={groupSelectable}/>
-        </p> : ""
+        <Group groupSelected={handleGroup} groups={groupSelectable}/>
+        : ""
 
     return (
-        <form>
-            <TimeRange handleDateChanged={handleDate}/>
-            {groupInput}
-            <MoodRate maxLevel={5} initialRate={moodRate} createRateItem={createStar} handleRate={handleRate}/>
-            <Button variant={"contained"} color={"primary"} onClick={e => handleSubmit(e)}>Mooder</Button>
-        </form>
+        <Card>
+            <CardContent>
+                <TimeRange handleDateChanged={handleDate}/>
+                {groupInput}
+                <MoodRate
+                    maxLevel={5}
+                    initialRate={moodRate}
+                    createRateItem={createStar}
+                    handleRate={handleRate}
+                />
+            </CardContent>
+            <CardActions>
+                <Button
+                    variant={"contained"}
+                    color={"primary"}
+                    onClick={e => handleSubmit(e)}>
+                    Mooder
+                </Button>
+            </CardActions>
+        </Card>
+
     )
 }
 
