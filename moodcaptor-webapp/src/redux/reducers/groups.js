@@ -5,10 +5,11 @@ const initialState = {
     existing: []
 }
 
-export default function (state = initialState, action) {
+const reduce = (state = initialState, action) => {
     switch (action.type) {
         case RESPONSE_GROUP_LIST:
-            const groups = action.payload
+            const payload = action.payload
+            const groups = payload.body
             return {
                 ...state,
                 'existing': groups
@@ -17,3 +18,5 @@ export default function (state = initialState, action) {
             return state
     }
 }
+
+export default reduce

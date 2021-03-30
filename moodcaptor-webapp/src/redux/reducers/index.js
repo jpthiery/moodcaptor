@@ -1,8 +1,11 @@
 import {combineReducers} from "redux";
-import survey from "./survey";
+import { connectRouter } from 'connected-react-router'
 import groups from "./groups"
+import nav from "./nav";
 
-export default combineReducers({
-    survey,
-    groups
+const reducers = (history) => combineReducers({
+    groups,
+    nav,
+    router: connectRouter(history),
 });
+export default reducers

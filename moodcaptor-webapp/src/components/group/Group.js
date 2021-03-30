@@ -1,9 +1,6 @@
 import React, {useState} from "react";
-
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
 
 const Group = ({groups, groupSelected}) => {
 
@@ -16,23 +13,24 @@ const Group = ({groups, groupSelected}) => {
     }
 
     return groups.length > 0 ? (
-        <Box display="flex" flexDirection="row" with="100%">
-            <Box>
-                <Typography component="h4" >Group :</Typography>
-            </Box>
-            <Box with="100%">
-                <Select onChange={e => handleGroupChanged(e)} value={selectedItem} defaultValue={selectedItem}>
-                    {
-                        groups.map(
-                            item => {
-                                return (<MenuItem value={item.id}>{item.name}</MenuItem>)
-                            }
-                        )
-                    }
-                </Select>
-            </Box>
-        </Box>
-    ) : (<span />)
+            <TextField
+                id="outlined-select-currency"
+                select
+                label="Group"
+                fullWidth
+                value={selectedItem}
+                onChange={e => handleGroupChanged(e)}
+                helperText="Please select your group"
+                variant="outlined"
+            >
+                {groups.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                        {option.name}
+                    </MenuItem>
+                ))}
+            </TextField>
+        ) :
+        ("")
 }
 
 export default Group

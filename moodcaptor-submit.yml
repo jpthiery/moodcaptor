@@ -7,16 +7,16 @@ functions:
     lang: site-nginx
     handler: ./moodcaptor-webapp
     image: moodcaptor-webapp
-  moodcaptor-handle:
+  moodcaptor-submit:
     lang: python3-multiple
     handler: ./moodcaptor-backend
-    image: moodcaptor-handle
+    image: moodcaptor-submit
     build_args:
-      FUNCTION_NAME: handle
-  moodcaptor-handle-bis:
+      FUNCTION_NAME: handle_submit
+  moodcaptor-group-request:
     lang: python3-multiple
     handler: ./moodcaptor-backend
-    image: moodcaptor-handle-bis
+    image: moodcaptor-group-request
     build_args:
-      FUNCTION_NAME: handle_bis
+      FUNCTION_NAME: handle_group_request
 

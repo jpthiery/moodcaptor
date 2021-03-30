@@ -1,24 +1,11 @@
 import React, {useState} from "react";
 
-import {Layer, Stage, Star} from "react-konva";
+import {Layer, Stage} from "react-konva";
+import Typography from "@material-ui/core/Typography";
 
-const MoodRate = ({maxLevel, createRateItem}) => {
+const MoodRate = ({maxLevel, initialRate = 0, createRateItem, handleRate}) => {
 
-    const rateItemsValues = []
-    let i = 0
-    for (; i < maxLevel; i++) {
-        rateItemsValues.push(false)
-    }
-
-    const widthItem = 50
-    const heightItem = 50
-
-    const totalWidth = maxLevel * widthItem
-
-    const [rateItemsState, setRateItemsState] = useState(rateItemsValues)
-
-    const handleItemSelected = (rate) => {
-        console.log(rate)
+    const computeRateItemsValues = (rate) => {
         const rateItemsValues = []
         let i = 0
         for (; i <= rate; i++) {
@@ -27,7 +14,24 @@ const MoodRate = ({maxLevel, createRateItem}) => {
         for (; i < maxLevel; i++) {
             rateItemsValues.push(false)
         }
+        return rateItemsValues
+    }
+
+    const rateItemsValues = computeRateItemsValues()
+
+    const widthItem = 50
+    const heightItem = 50
+
+    const totalWidth = maxLevel * widthItem
+
+    const [rateItemsState, setRateItemsState] = useState(rateItemsValues)
+
+
+    const handleItemSelected = (rate) => {
+        console.log(rate)
+        const rateItemsValues = computeRateItemsValues(rate)
         setRateItemsState(rateItemsValues)
+        handleRate(rate + 1)
     }
 
     const rateItems = rateItemsState.map((isSelected, rate) => createRateItem(
@@ -41,14 +45,14 @@ const MoodRate = ({maxLevel, createRateItem}) => {
     ))
 
     return (
-        <span>
-            <p>Rate :</p>
+        <p>
+            <Typography variant={"body1"} component={"body2"} >Rate :</Typography>
             <Stage width={totalWidth} height={heightItem}>
                 <Layer>
                     {rateItems}
                 </Layer>
             </Stage>
-        </span>
+        </p>
     )
 
 }

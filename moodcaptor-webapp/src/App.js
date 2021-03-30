@@ -1,21 +1,71 @@
 import './App.css';
 
-import SurveyForm from './containers/SurveyForm'
-import {React, useEffect} from "react";
-import {Provider} from "react-redux";
-import {fetchGroups} from './redux/middleware_actions'
+import SurveyForm from './containers/moodsurvey/SurveyForm'
+import {ToastContainer} from 'react-toastify'
 
-import store from "./redux/store";
+import React, {useEffect} from "react";
+import {Provider} from "react-redux";
+import {fetchGroups} from './redux/api.actions'
+
+import configureStore from "./redux/store";
+
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+
+import {Link} from "react-router-dom";
+import {Route, Switch,} from "react-router";
+import {ConnectedRouter} from 'connected-react-router'
+
+import "react-toastify/dist/ReactToastify.css"
+import {createBrowserHistory} from "history";
+
+const history = createBrowserHistory()
+
+const store = configureStore(history)
 
 function App() {
+
     useEffect(() => store.dispatch(fetchGroups()))
+
     return (
         <div className="App">
-            <Provider store={store}>
-                < SurveyForm/>
-            </Provider>
+            <CssBaseline/>
+            <Container maxWidth="md">
+                <Provider store={store}>
+                    <ConnectedRouter history={history}>
+                        <ul>
+                            <li>
+                                <Link to={"/function/moodcaptor-webapp/"}>Home</Link>
+                            </li>
+                            <li>
+                                <Link to={"/function/moodcaptor-webapp/stats"}>Stats</Link>
+                            </li>
+                        </ul>
+                        <Switch>
+                            <Route path={"/function/moodcaptor-webapp/stats"}>
+                                <p>Stats</p>
+                            </Route>
+                            <Route exact={"/function/moodcaptor-webapp/"}>
+                                < SurveyForm/>
+                            </Route>
+                        </Switch>
+                        <ToastContainer
+                            position="bottom-center"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
+                    </ConnectedRouter>
+                </Provider>
+            </Container>
         </div>
     );
 }
 
-export default App;
+export default App

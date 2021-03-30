@@ -1,21 +1,23 @@
+import React, {useState} from "react";
 import 'date-fns';
-import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const TimeRange = () => {
+const TimeRange = ({handleDateChanged}) => {
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    let now = new Date();
+    const [selectedDate, setSelectedDate] = useState(now);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        handleDateChanged(date)
     };
 
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
             <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
