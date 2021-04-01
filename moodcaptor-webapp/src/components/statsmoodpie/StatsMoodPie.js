@@ -9,7 +9,6 @@ import {
 
 
 const MoodLabel = (fontFamily) => (props) => {
-    console.log(props)
     const {x, y, cx, color, name} = props
     return (
         <text
@@ -31,6 +30,7 @@ const StatsMoodPie = ({data, fontFamily = 'Times New Roman'}) => {
         fontSize: '1rem',
         fontFamily: fontFamily,
     }
+    
     return (
         <ResponsiveContainer width="100%" height="100%">
             <PieChart>
