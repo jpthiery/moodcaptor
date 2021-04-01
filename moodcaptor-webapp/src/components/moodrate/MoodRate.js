@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 
-import {Layer, Stage} from "react-konva";
+import {Layer, Stage, Star} from "react-konva";
 import Typography from "@material-ui/core/Typography";
 
-const MoodRate = ({maxLevel, initialRate = 0, createRateItem, handleRate}) => {
+const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
 
     const computeRateItemsValues = (rate) => {
         const rateItemsValues = []
         let i = 0
-        for (; i <= rate; i++) {
+        for (; i < rate; i++) {
             rateItemsValues.push(true)
         }
         for (; i < maxLevel; i++) {
@@ -17,7 +17,7 @@ const MoodRate = ({maxLevel, initialRate = 0, createRateItem, handleRate}) => {
         return rateItemsValues
     }
 
-    const rateItemsValues = computeRateItemsValues()
+    const rateItemsValues = computeRateItemsValues(initialRate)
 
     const widthItem = 50
     const heightItem = 50
@@ -28,31 +28,49 @@ const MoodRate = ({maxLevel, initialRate = 0, createRateItem, handleRate}) => {
 
 
     const handleItemSelected = (rate) => {
-        console.log(rate)
         const rateItemsValues = computeRateItemsValues(rate)
         setRateItemsState(rateItemsValues)
-        handleRate(rate + 1)
+        handleRate(rate)
     }
 
-    const rateItems = rateItemsState.map((isSelected, rate) => createRateItem(
+    const createRateItem = (width, height, x, y, rateLevel, isSelected) => {
+        const color = isSelected ? 'yellow' : 'blank'
+        return (
+            <Star
+                key={rateLevel}
+                x={x}
+                y={y}
+                numPoints={5}
+                innerRadius={5}
+                outerRadius={15}
+                width={width}
+                height={height}
+                fill={color}
+                stroke={'black'}
+                strokeWidth={1}
+                onMouseOver={() => handleItemSelected(rateLevel)}
+            />
+        )
+    }
+
+    const rateItems = rateItemsState.map((isSelected, index) => createRateItem(
         widthItem,
         heightItem,
-        (widthItem * (rate + 1)) - (widthItem / 2),
+        (widthItem * (index + 1)) - (widthItem / 2),
         heightItem / 2,
-        rate,
-        isSelected,
-        handleItemSelected
+        index + 1,
+        isSelected
     ))
 
     return (
-        <p>
-            <Typography variant={"body1"} component={"body2"} >Rate :</Typography>
+        <>
+            <Typography variant={"body1"} >Rate :</Typography>
             <Stage width={totalWidth} height={heightItem}>
                 <Layer>
                     {rateItems}
                 </Layer>
             </Stage>
-        </p>
+        </>
     )
 
 }

@@ -6,7 +6,6 @@ import TimeRange from "../../components/timerange/TimeRange";
 import MoodRate from "../../components/moodrate/MoodRate";
 
 import Button from "@material-ui/core/Button";
-import {Star} from "react-konva";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -21,26 +20,6 @@ export const SurveyForm = ({groupSelectable, submitMood}) => {
     const initialRate = 0
     const [moodRate, setMoodRate] = useState(initialRate)
     const [group, setGroup] = useState(groupSelectable.length > 0 ? groupSelectable[0].id : "")
-
-    const createStar = (width, height, x, y, rateLevel, isSelected, handleItemSelected) => {
-        const color = isSelected ? 'yellow' : 'blank'
-        return (
-            <Star
-                key={rateLevel}
-                x={x}
-                y={y}
-                numPoints={5}
-                innerRadius={5}
-                outerRadius={15}
-                width={width}
-                height={height}
-                fill={color}
-                stroke={'black'}
-                strokeWidth={1}
-                onMouseOver={() => handleItemSelected(rateLevel)}
-            />
-        )
-    }
 
     const handleDate = date => {
         setMoodDate(date)
@@ -70,7 +49,6 @@ export const SurveyForm = ({groupSelectable, submitMood}) => {
                 <MoodRate
                     maxLevel={5}
                     initialRate={moodRate}
-                    createRateItem={createStar}
                     handleRate={handleRate}
                 />
             </CardContent>
