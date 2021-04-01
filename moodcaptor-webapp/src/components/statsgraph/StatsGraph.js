@@ -17,14 +17,30 @@ import {
 
 const StatsGraph = ({
                         data,
-                        voteColor = "#413ea0",
+                        votesColors,
                         moodColor = "#ff7300"
                     }) => {
+
+    const compute_avg = votes => {
+        const coefficient = votes.reduce((a, b) => a + b, 0)
+        const values = votes.map((item, index) => item * (index+1))
+            .reduce((a, b) => a + b, 0)
+        return values / coefficient
+    }
+
+    const computed_data = data.map(entry => {
+        return {
+            ...entry,
+            avg: compute_avg(entry.votes)
+        }
+    })
+
+    const first_entry = computed_data[0]
 
     return (
         <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
-                data={data}
+                data={computed_data}
                 margin={{
                     top: 20,
                     right: 20,
@@ -75,17 +91,36 @@ const StatsGraph = ({
                         fontSize: '1rem',
                         fontFamily: 'Times New Roman',
                     }}
+                    labelStyle={{
+                        fontSize: '1rem',
+                        fontFamily: 'Times New Roman',
+                    }}
                 />
-                <Legend/>
-                <Bar
-                    dataKey="nbVote"
-                    barSize={20}
-                    yAxisId={"left"}
-                    fill={voteColor}
+                <Legend
+                    itemStyle={{
+                        fontSize: '1rem',
+                        fontFamily: 'Times New Roman',
+                    }}
                 />
+                {
+                    Array.from(
+                        {length: first_entry.votes.length},
+                        (x, i) => {
+                            return (
+                                <Bar
+                                    dataKey={"votes[" + i + "]"}
+                                    name={"mood rate " + (i + 1)}
+                                    barSize={20}
+                                    stackId={"vote"}
+                                    yAxisId={"left"}
+                                    fill={votesColors[i]}
+                                />
+                            )
+                        })
+                }
                 <Line
                     type="monotone"
-                    dataKey="averageMood"
+                    dataKey="avg"
                     yAxisId={"right"}
                     stroke={moodColor}
                 />

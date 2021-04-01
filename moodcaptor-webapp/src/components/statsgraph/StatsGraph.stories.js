@@ -22,37 +22,70 @@ const Template = (args) => <div style={{width: '100%', height: 300}}>
     <StatsGraph {...args}  />
 </div>
 
+const colors = [
+    "#bc2323",
+    "#e97210",
+    "#2091b7",
+    "#dab80c",
+    "#4fcd7e"
+];
 
 const data = [
     {
         date: '01/03/2021',
-        nbVote: 4,
-        averageMood: 2.1
+        votes: [
+            1,
+            2,
+            6,
+            8,
+            1
+        ]
     },
     {
         date: '02/03/2021',
-        nbVote: 8,
-        averageMood: 3.8
+        votes: [
+            2,
+            3,
+            8,
+            2,
+            0
+        ]
     },
     {
         date: '03/03/2021',
-        nbVote: 2,
-        averageMood: 2.5
+        votes: [
+            0,
+            0,
+            0,
+            0,
+            9
+        ]
     },
     {
         date: '04/03/2021',
-        nbVote: 6,
-        averageMood: 4
+        votes: [
+            0,
+            2,
+            10,
+            4,
+            0
+        ]
     },
     {
         date: '05/03/2021',
-        nbVote: 5,
-        averageMood: 3.3
+        votes: [
+            1,
+            2,
+            3,
+            10,
+            2
+        ]
     }
 ];
 
 export const OneWeekStatsGraph = Template.bind({})
 
 OneWeekStatsGraph.args = {
-    data: data
+    data: data,
+    votesColors: colors
 }

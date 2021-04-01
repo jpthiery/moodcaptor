@@ -30,7 +30,7 @@ const StatsMoodPie = ({data, fontFamily = 'Times New Roman'}) => {
         fontSize: '1rem',
         fontFamily: fontFamily,
     }
-    
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <PieChart>
