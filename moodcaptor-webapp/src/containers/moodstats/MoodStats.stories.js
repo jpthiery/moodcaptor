@@ -90,8 +90,12 @@ const data = [
 export const OneWeekStatsGraph = Template.bind({})
 
 OneWeekStatsGraph.args = {
-    beginDate: '01/03/2021',
-    endDate: '05/03/2021',
     data: data,
+    configSurvey: config
+}
+
+export const EmptyData = Template.bind({})
+
+EmptyData.args = {
     configSurvey: config
 }

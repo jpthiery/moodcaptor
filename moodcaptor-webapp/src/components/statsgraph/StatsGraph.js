@@ -98,7 +98,7 @@ const StatsGraph = ({
                     }}
                 />
                 <Legend
-                    itemStyle={{
+                    wrapperStyle={{
                         fontSize: '1rem',
                         fontFamily: 'Times New Roman',
                     }}
