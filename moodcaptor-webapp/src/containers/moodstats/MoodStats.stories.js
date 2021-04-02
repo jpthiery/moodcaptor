@@ -1,140 +1,97 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import MoodStats from "./MoodStats";
 
-import {
-    Bar,
-    CartesianGrid,
-    ComposedChart,
-    Label,
-    Legend,
-    Line,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis
-} from 'recharts';
+export default {
+    title: "MoodStats",
+    component: MoodStats
+}
 
+const Template = (args) => <div style={{width: '100%', height: 400}}>
+    <MoodStats {...args}  />
+</div>
 
-const StatsGraph = ({
-                        data,
-                        configSurvey,
-                        moodColor = "#ff7300"
-                    }) => {
-
-    const compute_avg = votes => {
-        const nbVotes = votes.sort((a, b) => a.rate - b.rate).map(entry => entry.nbVotes);
-        const coefficient = nbVotes.reduce((a, b) => a + b, 0)
-        const values = nbVotes.map((item, index) => item * (index + 1))
-            .reduce((a, b) => a + b, 0)
-        return values / coefficient
+const config = [
+    {
+        label: "Very sad",
+        color: "#bc2323"
+    },
+    {
+        label: "Sad",
+        color: "#e97210"
+    },
+    {
+        label: "Neutral",
+        color: "#2091b7"
+    },
+    {
+        label: "Nice",
+        color: "#dab80c"
+    },
+    {
+        label: "Very happy",
+        color: "#4fcd7e"
     }
+]
 
-    const computed_data = data.map(entry => {
-        return {
-            ...entry,
-            avg: compute_avg(entry.votes)
-        }
-    })
 
-    const first_entry = computed_data[0]
+const data = [
+    {
+        date: '01/03/2021',
+        votes: [
+            {rate: 1, nbVotes: 1},
+            {rate: 2, nbVotes: 2},
+            {rate: 3, nbVotes: 6},
+            {rate: 4, nbVotes: 8},
+            {rate: 5, nbVotes: 1}
+        ]
+    },
+    {
+        date: '02/03/2021',
+        votes: [
+            {rate: 1, nbVotes: 2},
+            {rate: 2, nbVotes: 3},
+            {rate: 3, nbVotes: 8},
+            {rate: 4, nbVotes: 2},
+            {rate: 5, nbVotes: 0}
+        ]
+    },
+    {
+        date: '03/03/2021',
+        votes: [
+            {rate: 1, nbVotes: 0},
+            {rate: 2, nbVotes: 0},
+            {rate: 3, nbVotes: 0},
+            {rate: 4, nbVotes: 0},
+            {rate: 5, nbVotes: 9}
+        ]
+    },
+    {
+        date: '04/03/2021',
+        votes: [
+            {rate: 1, nbVotes: 0},
+            {rate: 2, nbVotes: 2},
+            {rate: 3, nbVotes: 10},
+            {rate: 4, nbVotes: 4},
+            {rate: 5, nbVotes: 0}
+        ]
+    },
+    {
+        date: '05/03/2021',
+        votes: [
+            {rate: 1, nbVotes: 1},
+            {rate: 2, nbVotes: 2},
+            {rate: 3, nbVotes: 3},
+            {rate: 4, nbVotes: 10},
+            {rate: 5, nbVotes: 2}
+        ]
+    }
+];
 
-    return (
-        <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart
-                data={computed_data}
-                margin={{
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 20,
-                }}
-            >
-                <CartesianGrid stroke="#f5f5f5"/>
-                <XAxis
-                    dataKey="date"
-                    scale="band"
-                    style={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                />
-                <YAxis
-                    style={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                    yAxisId={"left"}
-                >
-                    <Label
-                        value="Nb votes"
-                        position="insideRight"
-                        angle={-90}
-                        style={{textAnchor: 'middle'}}
-                    />
-                </YAxis>
-                <YAxis
-                    style={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                    yAxisId={"right"}
-                    orientation={"right"}
-                >
-                    <Label
-                        value="Average mood"
-                        position="insideLeft"
-                        angle={-90}
-                        style={{textAnchor: 'middle'}}
-                    />
-                </YAxis>
-                <Tooltip
-                    itemStyle={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                    labelStyle={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                />
-                <Legend
-                    itemStyle={{
-                        fontSize: '1rem',
-                        fontFamily: 'Times New Roman',
-                    }}
-                />
-                {
-                    Array.from(
-                        {length: first_entry.votes.length},
-                        (x, i) => {
-                            return (
-                                <Bar
-                                    key={`rate-${i}`}
-                                    dataKey={"votes[" + i + "].nbVotes"}
-                                    name={configSurvey[i].label}
-                                    barSize={20}
-                                    stackId={"vote"}
-                                    yAxisId={"left"}
-                                    fill={configSurvey[i].color}
-                                />
-                            )
-                        })
-                }
-                <Line
-                    type="monotone"
-                    dataKey="avg"
-                    yAxisId={"right"}
-                    stroke={moodColor}
-                />
-            </ComposedChart>
-        </ResponsiveContainer>
-    )
+export const OneWeekStatsGraph = Template.bind({})
+
+OneWeekStatsGraph.args = {
+    beginDate: '01/03/2021',
+    endDate: '05/03/2021',
+    data: data,
+    configSurvey: config
 }
-
-StatsGraph.propTypes = {
-    data: PropTypes.array.isRequired,
-    configSurvey: PropTypes.array.isRequired,
-    moodColor: PropTypes.string,
-}
-
-export default StatsGraph
