@@ -1,12 +1,25 @@
 import React from "react";
-import {
-    Cell,
-    Pie,
-    PieChart,
-    ResponsiveContainer,
-    Tooltip
-} from "recharts";
+import {Cell, Label, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 
+const AvgLabel = (props) => {
+
+    const {fontFamily, avg, color} = props
+    const {cx, cy} = props.viewBox;
+
+    return (
+        <text
+            x={cx}
+            y={cy}
+            fill={color}
+            className="recharts-text recharts-label"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontFamily={fontFamily}
+        >
+            <tspan alignmentBaseline="middle" fontSize="26">{avg}</tspan>
+        </text>
+    )
+}
 
 const MoodPieLabel = (fontFamily, configSurvey) => (props) => {
     const {x, y, cx, rate} = props
@@ -37,7 +50,7 @@ const MoodTooltipLabel = (fontFamily, configSurvey) => (props) => {
 
         return (
             <div style={{
-                background: 'rgba(194, 199, 207, 0.65)',
+                background: 'rgba(194, 199, 207, 0.9)',
                 padding: '10px',
                 border: '1px solid #c2c7cf'
             }}>
@@ -49,7 +62,12 @@ const MoodTooltipLabel = (fontFamily, configSurvey) => (props) => {
 }
 
 const StatsMoodPie = (props) => {
-    const {data, configSurvey, fontFamily = 'Times New Roman'} = props
+    const {
+        data,
+        configSurvey,
+        fontFamily = 'Times New Roman',
+        avgColor = "#000000"
+    } = props
     const styleFont = {
         fontSize: '1rem',
         fontFamily: fontFamily,
@@ -59,7 +77,7 @@ const StatsMoodPie = (props) => {
         <ResponsiveContainer>
             <PieChart>
                 <Pie
-                    data={data}
+                    data={data.votes}
                     dataKey={"nbVotes"}
                     cx="50%"
                     cy="50%"
@@ -67,17 +85,21 @@ const StatsMoodPie = (props) => {
                     outerRadius={90}
                     label={MoodPieLabel(fontFamily, configSurvey)}
                 >
-                    {data.map((entry, index) => {
+                    {data.votes.map((entry, index) => {
                         return (<Cell
                             key={`cell-${index}`}
                             fill={configSurvey[index].color}
                         />)
                     })}
+                    <Label width={30} position="center"
+                           content={<AvgLabel avg={data.avg} fontFamily={fontFamily} color={avgColor}/>}>
+                    </Label>
                 </Pie>
                 <Tooltip
                     itemStyle={styleFont}
                     content={MoodTooltipLabel(fontFamily, configSurvey)}
                 />
+
             </PieChart>
         </ResponsiveContainer>
     )

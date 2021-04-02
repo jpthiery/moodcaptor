@@ -9,7 +9,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 
-import { makeStyles } from '@material-ui/core/styles';
+import {compute_avg} from "../../utils";
+
+import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MoodStats = ({data, configSurvey}) => {
+const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
 
     const classes = useStyles();
 
@@ -30,7 +32,7 @@ const MoodStats = ({data, configSurvey}) => {
     if (data === undefined || data.length === 0) {
         bodyContent =
             <div className={classes.root}>
-                <CircularProgress />
+                <CircularProgress/>
             </div>
 
     } else {
@@ -49,20 +51,31 @@ const MoodStats = ({data, configSurvey}) => {
             }
         )
 
+
         data.forEach(entry => {
             entry.votes.forEach(vote => {
                 aggregatedVotes.filter(entry => entry.rate === vote.rate)[0].nbVotes += vote.nbVotes
             })
         })
+
+        const aggregateData = {
+            avg: compute_avg(aggregatedVotes),
+            votes: aggregatedVotes
+        }
+
         bodyContent =
             <div style={{width: '100%', height: 400}}>
                 <Box display="flex" flexDirection="row" p={1} m={1} bgcolor="background.paper"
                      style={{height: '100%'}}>
-                    <Box p={1} width="85%">
+                    <Box p={1} width="80%">
                         <StatsGraph data={data} configSurvey={configSurvey}/>
                     </Box>
-                    <Box p={1} width="15%">
-                        <StatsMoodPie data={aggregatedVotes} configSurvey={configSurvey}/>
+                    <Box p={1} width="20%">
+                        <StatsMoodPie
+                            data={aggregateData}
+                            configSurvey={configSurvey}
+                            avgColor={avgColor}
+                        />
                     </Box>
                 </Box>
             </div>

@@ -33,17 +33,21 @@ const config = [
     }
 ]
 
-const data = [
-    { rate: 1, nbVotes: 1},
-    { rate: 2, nbVotes: 4},
-    { rate: 3, nbVotes: 8},
-    { rate: 4, nbVotes: 6},
-    { rate: 5, nbVotes: 1}
-]
+const data = {
+    votes: [
+        {rate: 1, nbVotes: 1},
+        {rate: 2, nbVotes: 4},
+        {rate: 3, nbVotes: 8},
+        {rate: 4, nbVotes: 6},
+        {rate: 5, nbVotes: 1}
+    ],
+    avg: 3.23
+}
 
 export const OneWeekStatsGraph = Template.bind({})
 
 OneWeekStatsGraph.args = {
     data: data,
-    configSurvey: config
+    configSurvey: config,
+    avgColor: "#542188"
 }

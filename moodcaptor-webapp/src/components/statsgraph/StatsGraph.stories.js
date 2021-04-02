@@ -55,7 +55,8 @@ const data = [
             {rate: 3, nbVotes: 6},
             {rate: 4, nbVotes: 8},
             {rate: 5, nbVotes: 1}
-        ]
+        ],
+        avg: 3
     },
     {
         date: '02/03/2021',
@@ -65,7 +66,8 @@ const data = [
             {rate: 3, nbVotes: 8},
             {rate: 4, nbVotes: 2},
             {rate: 5, nbVotes: 0}
-        ]
+        ],
+        avg: 3
     },
     {
         date: '03/03/2021',
@@ -75,7 +77,8 @@ const data = [
             {rate: 3, nbVotes: 0},
             {rate: 4, nbVotes: 0},
             {rate: 5, nbVotes: 9}
-        ]
+        ],
+        avg: 3
     },
     {
         date: '04/03/2021',
@@ -85,7 +88,8 @@ const data = [
             {rate: 3, nbVotes: 10},
             {rate: 4, nbVotes: 4},
             {rate: 5, nbVotes: 0}
-        ]
+        ],
+        avg: 3
     },
     {
         date: '05/03/2021',
@@ -95,7 +99,8 @@ const data = [
             {rate: 3, nbVotes: 3},
             {rate: 4, nbVotes: 10},
             {rate: 5, nbVotes: 2}
-        ]
+        ],
+        avg: 3
     }
 ];
 

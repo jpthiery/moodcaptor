@@ -11,7 +11,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 
-import {existingGroups} from "../../redux/selectors";
+import {existingGroups} from "../../redux/groups.selectors";
 import {submitMood} from "./actions";
 
 export const SurveyForm = ({groupSelectable, submitMood}) => {

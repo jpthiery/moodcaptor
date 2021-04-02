@@ -21,27 +21,12 @@ const StatsGraph = ({
                         moodColor = "#ff7300"
                     }) => {
 
-    const compute_avg = votes => {
-        const nbVotes = votes.sort((a, b) => a.rate - b.rate).map(entry => entry.nbVotes);
-        const coefficient = nbVotes.reduce((a, b) => a + b, 0)
-        const values = nbVotes.map((item, index) => item * (index + 1))
-            .reduce((a, b) => a + b, 0)
-        return values / coefficient
-    }
-
-    const computed_data = data.map(entry => {
-        return {
-            ...entry,
-            avg: compute_avg(entry.votes)
-        }
-    })
-
-    const first_entry = computed_data[0]
+    const first_entry = data[0]
 
     return (
         <ResponsiveContainer>
             <ComposedChart
-                data={computed_data}
+                data={data}
                 margin={{
                     top: 20,
                     right: 20,
