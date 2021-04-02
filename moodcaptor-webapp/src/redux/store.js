@@ -5,7 +5,6 @@ import rootReducer from "./reducers";
 import {routerMiddleware} from 'connected-react-router'
 
 
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configureStore = history => createStore(

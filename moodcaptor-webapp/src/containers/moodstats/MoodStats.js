@@ -12,6 +12,9 @@ import Box from "@material-ui/core/Box";
 import {compute_avg} from "../../utils";
 
 import {makeStyles} from '@material-ui/core/styles';
+import {existingGroups} from "../../redux/groups.selectors";
+import {connect} from "react-redux";
+import {getCurrentSurveyData} from "../../redux/survey.selectors";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,4 +94,15 @@ const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
     )
 }
 
-export default MoodStats
+
+export const mapStateToProps = state => {
+    const data = getCurrentSurveyData(state)
+    return {
+        data: data
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    {}
+)(MoodStats)

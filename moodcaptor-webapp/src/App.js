@@ -1,6 +1,8 @@
 import './App.css';
 
 import SurveyForm from './containers/moodsurvey/SurveyForm'
+import MoodStats from "./containers/moodstats/MoodStats";
+
 import {ToastContainer} from 'react-toastify'
 
 import React, {useEffect} from "react";
@@ -44,10 +46,10 @@ function App() {
                         </ul>
                         <Switch>
                             <Route path={"/function/moodcaptor-webapp/stats"}>
-                                <p>Stats</p>
+                                <MoodStats/>
                             </Route>
                             <Route exact={"/function/moodcaptor-webapp/"}>
-                                < SurveyForm/>
+                                <SurveyForm/>
                             </Route>
                         </Switch>
                         <ToastContainer
