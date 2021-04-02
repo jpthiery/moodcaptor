@@ -39,7 +39,7 @@ const StatsGraph = ({
     const first_entry = computed_data[0]
 
     return (
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
                 data={computed_data}
                 margin={{
