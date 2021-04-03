@@ -1,4 +1,3 @@
-
 import DateFnsAdapter from "@date-io/date-fns";
 
 const dateFormat = "dd/MM/yyyy"
@@ -23,5 +22,9 @@ export const getCurrentSurveyData = store => {
     const begin = dateFns.parse(currentBegin(store), dateFormat)
     const end = dateFns.parse(currentEnd(store), dateFormat)
     return surveyForGroup(store, group)
-        .filter(entry => begin <= dateFns.parse(entry.date, dateFormat) <= end)
+        .filter(entry => {
+            const dateEntry = dateFns.parse(entry.date, dateFormat)
+            return dateFns.isBefore(dateFns.addDays(begin, -1), dateEntry) &&
+                dateFns.isBefore(dateEntry, dateFns.addDays(end, 1))
+        })
 }

@@ -74,4 +74,18 @@ describe('survey selector', () => {
         expect(getCurrentSurveyData(defaultStore))
             .toEqual(defaultSurvey)
     });
+
+    it('should select surveys of current group with subset of survey',  () => {
+        const currentSurveyData = getCurrentSurveyData({
+            ...defaultStore,
+            survey: {
+                ...defaultStore.survey,
+                current_end_selected: '04/03/2021'
+            }
+        });
+        expect(currentSurveyData)
+            .not.toBeNull()
+        expect(currentSurveyData).toHaveLength(4)
+    });
+
 })
