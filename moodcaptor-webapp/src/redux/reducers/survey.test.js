@@ -28,7 +28,7 @@ const data = [
 
 const stateWithOnSurvey = {
     surveys: {
-        'azerty' : [
+        'azerty': [
             {
                 date: '04/03/2021',
                 votes: [
@@ -56,6 +56,7 @@ const stateWithOnSurvey = {
     current_group_selected: "azerty",
     current_begin_selected: "01/03/2021",
     current_end_selected: "05/03/2021"
+
 };
 
 describe('survey reducer', () => {
@@ -84,8 +85,8 @@ describe('survey reducer', () => {
         expect(reducer(
             stateWithOnSurvey,
             surveyReceived(
-                "01/03/2021",
-                "05/03/2021",
+                "04/03/2021",
+                "06/03/2021",
                 "azerty",
                 [
                     {
@@ -101,7 +102,7 @@ describe('survey reducer', () => {
                 ])
         )).toEqual({
             surveys: {
-                'azerty' :  [
+                'azerty': [
                     {
                         date: '04/03/2021',
                         votes: [
@@ -138,8 +139,8 @@ describe('survey reducer', () => {
                 ]
             },
             current_group_selected: "azerty",
-            current_begin_selected: "01/03/2021",
-            current_end_selected: "05/03/2021"
+            current_begin_selected: "04/03/2021",
+            current_end_selected: "06/03/2021"
         })
     });
 })

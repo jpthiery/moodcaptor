@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
+export const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
 
     const classes = useStyles();
 
@@ -97,6 +97,7 @@ const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
 
 export const mapStateToProps = state => {
     const data = getCurrentSurveyData(state)
+    console.log(data)
     return {
         data: data
     }

@@ -2,6 +2,7 @@ import './App.css';
 
 import SurveyForm from './containers/moodsurvey/SurveyForm'
 import MoodStats from "./containers/moodstats/MoodStats";
+import MenuTop from "./containers/menu/MenuTop"
 
 import {ToastContainer} from 'react-toastify'
 
@@ -32,18 +33,12 @@ function App() {
 
     return (
         <div className="App">
-            <CssBaseline/>
-            <Container maxWidth="md">
-                <Provider store={store}>
-                    <ConnectedRouter history={history}>
-                        <ul>
-                            <li>
-                                <Link to={"/function/moodcaptor-webapp/"}>Home</Link>
-                            </li>
-                            <li>
-                                <Link to={"/function/moodcaptor-webapp/stats"}>Stats</Link>
-                            </li>
-                        </ul>
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <CssBaseline/>
+                    <Container maxWidth="md">
+                        <MenuTop/>
+
                         <Switch>
                             <Route path={"/function/moodcaptor-webapp/stats"}>
                                 <MoodStats/>
@@ -63,9 +58,9 @@ function App() {
                             draggable
                             pauseOnHover
                         />
-                    </ConnectedRouter>
-                </Provider>
-            </Container>
+                    </Container>
+                </ConnectedRouter>
+            </Provider>
         </div>
     );
 }
