@@ -2,16 +2,7 @@ import {RESPONSE_GROUP_LIST} from "../actionTypes";
 
 
 const initialState = {
-    existing: [
-        {
-            id: "azerty",
-            name: "Fake"
-        },
-        {
-            id: "12343",
-            name: "Fake Bis"
-        }
-    ]
+    existing: []
 }
 
 const reduce = (state = initialState, action) => {
