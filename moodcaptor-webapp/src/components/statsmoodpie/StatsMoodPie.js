@@ -1,7 +1,6 @@
 import React from "react";
 import {Cell, Label, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 import PropTypes from "prop-types";
-import StatsGraph from "../statsgraph/StatsGraph";
 
 const AvgLabel = (props) => {
 
