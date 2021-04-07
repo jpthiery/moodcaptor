@@ -19,12 +19,22 @@ export const surveyForGroup = (store, groupId) => {
 
 export const getCurrentSurveyData = store => {
     const group = currentGroup(store)
-    const begin = dateFns.parse(currentBegin(store), dateFormat)
-    const end = dateFns.parse(currentEnd(store), dateFormat)
-    return surveyForGroup(store, group)
-        .filter(entry => {
+    return getCurrentSurveyDataForGroup(store, group)
+}
+
+export const getCurrentSurveyDataForGroup = (store, groupId) => {
+    const beginStr = currentBegin(store);
+    const endStr = currentEnd(store);
+    const result = surveyForGroup(store, groupId);
+    if (beginStr.length > 0 && endStr.length > 0) {
+        const begin = dateFns.parse(beginStr, dateFormat)
+        const end = dateFns.parse(endStr, dateFormat)
+        return result.filter(entry => {
             const dateEntry = dateFns.parse(entry.date, dateFormat)
             return dateFns.isBefore(dateFns.addDays(begin, -1), dateEntry) &&
                 dateFns.isBefore(dateEntry, dateFns.addDays(end, 1))
         })
+
+    }
+    return result
 }

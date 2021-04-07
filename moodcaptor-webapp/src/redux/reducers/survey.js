@@ -1,4 +1,4 @@
-import {RESPONSE_SURVEY} from "../actionTypes";
+import {GROUP_SELECTED, RESPONSE_SURVEY} from "../actionTypes";
 import {compute_avg} from "../../utils";
 
 const initialState = {
@@ -19,18 +19,20 @@ const reduce = (state = initialState, action) => {
                     avg: compute_avg(entry.votes)
                 }
             })
-            const newData = groupId in state.surveys ?
-                [...state.surveys[groupId], ...data] :
-                data
             return {
                 ...state,
                 surveys: {
                     ...state.surveys,
-                    [groupId]: newData
+                    [groupId]: data
                 },
-                current_group_selected: groupId,
                 current_begin_selected: begin,
                 current_end_selected: end,
+            }
+        case GROUP_SELECTED:
+            const groupIdSelected = action.payload.groupId
+            return {
+                ...state,
+                current_group_selected: groupIdSelected
             }
         default:
             return state

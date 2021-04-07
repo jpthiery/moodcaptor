@@ -1,5 +1,7 @@
 import React from "react";
 import {Cell, Label, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
+import PropTypes from "prop-types";
+import StatsGraph from "../statsgraph/StatsGraph";
 
 const AvgLabel = (props) => {
 
@@ -104,6 +106,11 @@ const StatsMoodPie = (props) => {
         </ResponsiveContainer>
     )
 
+}
+
+StatsMoodPie.propTypes = {
+    data: PropTypes.array.isRequired,
+    configSurvey: PropTypes.array.isRequired
 }
 
 export default StatsMoodPie

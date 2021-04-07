@@ -1,8 +1,8 @@
 import './App.css';
 
 import SurveyForm from './containers/moodsurvey/SurveyForm'
-import MoodStats from "./containers/moodstats/MoodStats";
 import MenuTop from "./containers/menu/MenuTop"
+import GroupStats from "./pages/groupstats/GroupStats";
 
 import {ToastContainer} from 'react-toastify'
 
@@ -15,35 +15,49 @@ import configureStore from "./redux/store";
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
-import {Link} from "react-router-dom";
-import {Route, Switch,} from "react-router";
+import {Route, Switch, useParams,} from "react-router";
 import {ConnectedRouter} from 'connected-react-router'
 
 import "react-toastify/dist/ReactToastify.css"
 import {createBrowserHistory} from "history";
+import {groupSelected} from "./redux/survey.actions";
 
 const history = createBrowserHistory()
 
 const store = configureStore(history)
 
+function RouteToGroupStats() {
+    const {groupId} = useParams()
+    useEffect(() => {
+        if (groupId) store.dispatch(groupSelected(groupId))
+    })
+    if (groupId) {
+        return (
+            <GroupStats/>
+        )
+    }
+    return ""
+}
+
 function App() {
 
-    useEffect(() => store.dispatch(fetchGroups()))
+    useEffect(() => {
+        store.dispatch(fetchGroups())
+    })
 
     return (
         <div className="App">
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <CssBaseline/>
-                    <Container maxWidth="md">
+                    <Container maxWidth="xl">
                         <MenuTop/>
 
                         <Switch>
-                            <Route path={"/function/moodcaptor-webapp/stats"}>
-                                <MoodStats/>
+                            <Route path={"/function/moodcaptor-webapp/:groupId/stats"}>
+                                <RouteToGroupStats/>
                             </Route>
-                            <Route exact={"/function/moodcaptor-webapp/"}>
+                            <Route path={"/function/moodcaptor-webapp/"} exact>
                                 <SurveyForm/>
                             </Route>
                         </Switch>

@@ -2,7 +2,7 @@ import React from "react";
 import TimeRange from "./TimeRange";
 
 export default {
-    title: "TimeRange",
+    title: "Design/Atome/TimeRange",
     component: TimeRange
 }
 

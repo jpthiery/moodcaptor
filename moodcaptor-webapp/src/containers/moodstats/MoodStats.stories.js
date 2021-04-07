@@ -7,6 +7,7 @@ import {connect, Provider} from "react-redux";
 
 import rootReducer from '../../redux/reducers'
 import {createBrowserHistory} from "history";
+import StatsGraph from "../../components/statsgraph/StatsGraph";
 
 const history = createBrowserHistory()
 
@@ -23,8 +24,15 @@ const MoodStatsConnected = connect(
 )(MoodStats)
 
 export default {
-    title: "MoodStats",
-    component: MoodStats
+    title: "Design/Connected Components/MoodStats",
+    component: MoodStats,
+    argTypes: {
+        moodColor: {
+            control: {
+                type: "color"
+            }
+        }
+    }
 }
 
 const Template = (args) =>
@@ -57,8 +65,6 @@ const config = [
     }
 ]
 
-
-const data = [];
 
 export const OneWeekStatsGraph = Template.bind({})
 

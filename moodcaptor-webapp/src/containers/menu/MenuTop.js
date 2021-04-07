@@ -9,12 +9,25 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from "@material-ui/core/Typography";
 import {connect} from "react-redux";
 
-import {home, stats} from "./actions"
+import Group from "../../components/group/Group";
 
-const MenuTop = ({gotoStats, gotoHome}) => {
+import {home, stats, statsGroup} from "./actions"
+
+import {existingGroups} from "../../redux/groups.selectors";
+import {currentGroup} from "../../redux/survey.selectors";
+
+export const MenuTop = ({groupSelectable, groupSelected, gotoStats, gotoHome, gotoStatsGroup}) => {
+
+    const groupInput = (groupSelectable !== undefined && groupSelectable.length > 0) ?
+        <Group
+            groups={groupSelectable}
+            initialGroupSelected={groupSelected}
+            groupSelected={groupId => gotoStatsGroup(groupId)}
+        /> :
+        null
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" style={{marginBottom: '10px'}}>
             <Toolbar>
                 <IconButton
                     edge={"start"}
@@ -31,20 +44,27 @@ const MenuTop = ({gotoStats, gotoHome}) => {
                     />
                 </IconButton>
                 <Typography variant={"h6"}>
-                    Coucou
+                    MoodCaptor
                 </Typography>
+                {groupInput}
             </Toolbar>
         </AppBar>
     )
 }
 export const mapStateToProps = state => {
-    return {}
+    const groupSelectable = existingGroups(state)
+    const groupSelected = currentGroup(state)
+    return {
+        groupSelectable,
+        groupSelected
+    }
 }
 
 export default connect(
     mapStateToProps,
     {
         gotoStats: stats,
-        gotoHome: home
+        gotoHome: home,
+        gotoStatsGroup: statsGroup
     }
 )(MenuTop)

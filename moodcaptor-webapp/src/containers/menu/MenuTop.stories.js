@@ -5,7 +5,7 @@ import {connect, Provider} from "react-redux";
 
 import rootReducer from '../../redux/reducers'
 
-import {mapStateToProps, SurveyForm,} from "./SurveyForm";
+import {mapStateToProps, MenuTop} from "./MenuTop";
 import {createBrowserHistory} from "history";
 
 const history = createBrowserHistory()
@@ -16,24 +16,26 @@ const store = preloadedState => createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-const SurveyConnected = connect(
+const MenuTopConnected = connect(
     mapStateToProps,
     {}
-)(SurveyForm)
+)(MenuTop)
 
 
 export default {
-    title: 'Design/Connected Components/Survey Form',
-    component: SurveyForm,
+    title: 'Design/Connected Components/Top Menu',
+    component: MenuTop,
     argTypes: {
-        submitMood: {action: 'submitted'}
+        gotoStats: {action: 'gotoStats'},
+        gotoHome: {action: 'gotoHome'},
+        gotoStatsGroup: {action: 'gotoStatsGroup'}
     },
 }
 
 const Template = (args) => {
     return (
         <Provider store={store(args.preloadedState)}>
-            <SurveyConnected {...args} />
+            <MenuTopConnected {...args} />
         </Provider>
     )
 }

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import {Layer, Stage, Star} from "react-konva";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 
 const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
 
@@ -73,6 +74,10 @@ const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
         </>
     )
 
+}
+
+MoodRate.propTypes = {
+    maxLevel: PropTypes.number.isRequired
 }
 
 export default MoodRate

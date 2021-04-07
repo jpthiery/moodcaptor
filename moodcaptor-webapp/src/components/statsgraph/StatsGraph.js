@@ -108,6 +108,7 @@ const StatsGraph = ({
                 <Line
                     type="monotone"
                     dataKey="avg"
+                    name="Mood trend"
                     yAxisId={"right"}
                     stroke={moodColor}
                 />

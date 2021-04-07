@@ -2,7 +2,7 @@ import React from "react";
 import StatsGraph from "./StatsGraph";
 
 export default {
-    title: "StatsGraph",
+    title: "Design/Atome/StatsGraph",
     component: StatsGraph,
     argTypes: {
         voteColor: {

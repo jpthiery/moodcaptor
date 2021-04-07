@@ -6,8 +6,10 @@ const forgePath = (subPath) => basePath + subPath
 
 const gotoHome = push(basePath)
 const gotoStats = push(forgePath('stats'))
+const gotoStatsGroup = (groupId) => push(forgePath(`${groupId}/stats`))
 
 export {
     gotoHome,
-    gotoStats
+    gotoStats,
+    gotoStatsGroup
 }

@@ -2,7 +2,7 @@ import React from "react";
 import Group from "./Group";
 
 export default {
-    title: "Group",
+    title: "Design/Atome/Group",
     component: Group,
     argTypes: { groupSelected: { action: 'selected' } }
 }

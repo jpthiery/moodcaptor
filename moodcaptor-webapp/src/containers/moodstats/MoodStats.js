@@ -12,7 +12,6 @@ import Box from "@material-ui/core/Box";
 import {compute_avg} from "../../utils";
 
 import {makeStyles} from '@material-ui/core/styles';
-import {existingGroups} from "../../redux/groups.selectors";
 import {connect} from "react-redux";
 import {getCurrentSurveyData} from "../../redux/survey.selectors";
 
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
+export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
 
     const classes = useStyles();
 
@@ -71,13 +70,13 @@ export const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
                 <Box display="flex" flexDirection="row" p={1} m={1} bgcolor="background.paper"
                      style={{height: '100%'}}>
                     <Box p={1} width="80%">
-                        <StatsGraph data={data} configSurvey={configSurvey}/>
+                        <StatsGraph data={data} configSurvey={configSurvey} moodColor={moodColor}/>
                     </Box>
                     <Box p={1} width="20%">
                         <StatsMoodPie
                             data={aggregateData}
                             configSurvey={configSurvey}
-                            avgColor={avgColor}
+                            avgColor={moodColor}
                         />
                     </Box>
                 </Box>
@@ -97,7 +96,6 @@ export const MoodStats = ({data, configSurvey, avgColor = "#671f86"}) => {
 
 export const mapStateToProps = state => {
     const data = getCurrentSurveyData(state)
-    console.log(data)
     return {
         data: data
     }

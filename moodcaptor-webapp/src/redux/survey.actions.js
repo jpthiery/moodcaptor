@@ -1,4 +1,4 @@
-import {RESPONSE_SURVEY} from "./actionTypes"
+import {GROUP_SELECTED, RESPONSE_SURVEY} from "./actionTypes"
 
 const surveyReceived = (begin, end, groupId, body) => ({
     type: RESPONSE_SURVEY,
@@ -10,6 +10,16 @@ const surveyReceived = (begin, end, groupId, body) => ({
     }
 })
 
+
+const groupSelected = (groupId) => ({
+    type: GROUP_SELECTED,
+    payload:  {
+        groupId: groupId
+    }
+})
+
+
 export {
-    surveyReceived
+    surveyReceived,
+    groupSelected
 }

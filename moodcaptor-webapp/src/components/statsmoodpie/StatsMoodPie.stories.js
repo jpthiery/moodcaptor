@@ -2,7 +2,7 @@ import React from "react";
 import StatsMoodPie from "./StatsMoodPie";
 
 export default {
-    title: "StatsMoodPie",
+    title: "Design/Atome/StatsMoodPie",
     component: StatsMoodPie
 }
 

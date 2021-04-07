@@ -3,7 +3,7 @@ import MoodRate from "./MoodRate";
 import {Star} from "react-konva";
 
 export default {
-    title: "MoodRate",
+    title: "Design/Atome/MoodRate",
     component: MoodRate,
     argTypes: {
         handleRate: { action: 'handleRate' }
