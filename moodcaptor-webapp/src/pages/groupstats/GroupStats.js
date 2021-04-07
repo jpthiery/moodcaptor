@@ -3,7 +3,7 @@ import {connect, useDispatch} from "react-redux";
 
 import MoodStats from "../../containers/moodstats/MoodStats";
 
-import {currentBegin, currentEnd, currentGroup, getCurrentSurveyDataForGroup} from "../../redux/survey.selectors";
+import {currentBegin, currentEnd, getCurrentSurveyData} from "../../redux/survey.selectors";
 import {fetchSurvey} from "./actions";
 
 export const GroupStats = ({groupId, begin, end, surveys}) => {
@@ -62,12 +62,10 @@ export const GroupStats = ({groupId, begin, end, surveys}) => {
 }
 
 export const mapStateToProps = state => {
-    const groupId = currentGroup(state)
     const begin = currentBegin(state)
     const end = currentEnd(state)
-    const surveys = getCurrentSurveyDataForGroup(state, groupId)
+    const surveys = getCurrentSurveyData(state)
     return {
-        groupId,
         begin,
         end,
         surveys

@@ -33,7 +33,7 @@ function RouteToGroupStats() {
     })
     if (groupId) {
         return (
-            <GroupStats/>
+            <GroupStats key={groupId} groupId={groupId}/>
         )
     }
     return ""
@@ -55,7 +55,7 @@ function App() {
 
                         <Switch>
                             <Route path={"/function/moodcaptor-webapp/:groupId/stats"}>
-                                <RouteToGroupStats/>
+                                <RouteToGroupStats />
                             </Route>
                             <Route path={"/function/moodcaptor-webapp/"} exact>
                                 <SurveyForm/>
