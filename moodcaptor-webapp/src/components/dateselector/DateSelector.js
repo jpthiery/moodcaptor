@@ -6,7 +6,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const TimeRange = ({handleDateChanged}) => {
+const DateSelector = ({label = "Mood date", handleDateChanged}) => {
 
     let now = new Date();
     const [selectedDate, setSelectedDate] = useState(now);
@@ -17,14 +17,14 @@ const TimeRange = ({handleDateChanged}) => {
     };
 
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
                 format="dd/MM/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Mood date"
+                label={label}
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
@@ -35,4 +35,4 @@ const TimeRange = ({handleDateChanged}) => {
     );
 }
 
-export default TimeRange
+export default DateSelector

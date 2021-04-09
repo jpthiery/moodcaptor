@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {connect} from "react-redux";
 
 import Group from "../../components/group/Group";
-import TimeRange from "../../components/timerange/TimeRange";
+import DateSelector from "../../components/dateselector/DateSelector";
 import MoodRate from "../../components/moodrate/MoodRate";
 
 import Button from "@material-ui/core/Button";
@@ -44,7 +44,7 @@ export const SurveyForm = ({groupSelectable, submitMood}) => {
     return (
         <Card>
             <CardContent>
-                <TimeRange handleDateChanged={handleDate}/>
+                <DateSelector handleDateChanged={handleDate}/>
                 {groupInput}
                 <MoodRate
                     maxLevel={5}
