@@ -82,7 +82,7 @@ const lookupSurvey = (begin, end, groupId) => dispatch => {
                 }
             ];
             dispatch(surveyReceived('01/03/2021', '05/03/2021', groupId, data))
-        }, 5000);
+        }, 2000);
 
     }
     symulateApiCall().catch(e => console.log(e))

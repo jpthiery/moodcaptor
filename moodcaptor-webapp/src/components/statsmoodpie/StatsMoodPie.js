@@ -108,7 +108,7 @@ const StatsMoodPie = (props) => {
 }
 
 StatsMoodPie.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
     configSurvey: PropTypes.array.isRequired
 }
 

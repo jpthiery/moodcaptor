@@ -1,31 +1,48 @@
 import React, {useEffect, useState} from "react";
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 
 import MoodStats from "../../containers/moodstats/MoodStats";
 
 import {currentBegin, currentEnd, getCurrentSurveyData} from "../../redux/survey.selectors";
 import {fetchSurvey} from "./actions";
+import {convertStringToDate} from "../../date_utils";
+import DateFnsUtils from "@date-io/date-fns";
+
+const dateFns = new DateFnsUtils()
+
+export const surveyMustBeFetch = (groupId, begin, end, surveyResult, fetchDataRequested) => {
+    if (
+        (surveyResult === undefined || surveyResult.length === 0) &&
+        !fetchDataRequested) {
+        return true
+    }
+    if (fetchDataRequested) return false
+    if (groupId) {
+        const beginResult = convertStringToDate(surveyResult[0].date)
+        const endResult = convertStringToDate(surveyResult[surveyResult.length - 1].date)
+        const beginExpected = convertStringToDate(begin)
+        const endExpected = convertStringToDate(end)
+        return dateFns.isAfter(beginResult, beginExpected) ||
+            dateFns.isBefore(endResult, endExpected)
+    }
+    return false
+}
 
 export const GroupStats = ({groupId, begin, end, surveys, fetchSurvey}) => {
-
-    console.log(`GroupStats surveys ${groupId} ->${surveys}<- ${begin} ${end}`)
 
     const [fetchDataRequested, requestFetchData] = useState(false)
 
     useEffect(() => {
-        if ((surveys === undefined || surveys.length === 0) &&
-            groupId &&
-            !fetchDataRequested
-        ) {
+        const mustBeFetch = surveyMustBeFetch(groupId, begin, end, surveys, fetchDataRequested)
+        if (mustBeFetch) {
+            requestFetchData(true)
             fetchSurvey(
                 groupId,
                 begin,
                 end
             )
-            requestFetchData(true)
         }
     })
-
 
     const configSurvey = [
         {

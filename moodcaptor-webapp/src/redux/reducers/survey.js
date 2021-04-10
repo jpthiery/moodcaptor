@@ -42,8 +42,10 @@ const reduce = (state = initialState, action) => {
                     ...state.surveys,
                     [groupId]: data
                 },
+                /*
                 current_begin_selected: begin,
                 current_end_selected: end,
+                 */
             }
         case GROUP_SELECTED:
             const groupIdSelected = action.payload.groupId
