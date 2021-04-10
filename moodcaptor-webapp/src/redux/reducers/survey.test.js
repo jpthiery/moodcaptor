@@ -54,8 +54,8 @@ const stateWithOnSurvey = {
         ]
     },
     current_group_selected: "",
-    current_begin_selected: "01/03/2021",
-    current_end_selected: "05/03/2021"
+    current_begin_selected: "",
+    current_end_selected: ""
 
 };
 
@@ -139,8 +139,8 @@ describe('survey reducer', () => {
                 ]
             },
             current_group_selected: "",
-            current_begin_selected: "04/03/2021",
-            current_end_selected: "06/03/2021"
+            current_begin_selected: "",
+            current_end_selected: ""
         })
     });
     it('should receive a second survey for a given group with same entries', function () {
@@ -211,8 +211,8 @@ describe('survey reducer', () => {
                 ]
             },
             current_group_selected: "",
-            current_begin_selected: "04/03/2021",
-            current_end_selected: "06/03/2021"
+            current_begin_selected: "",
+            current_end_selected: ""
         })
     });
 
