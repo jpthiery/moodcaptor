@@ -2,13 +2,15 @@ import React from "react";
 import TimeRange from "./TimeRange";
 
 export default {
-    title: "TimeRange",
-    component: TimeRange
+    title: "Design/Atome/TimeRange",
+    component: TimeRange,
+    argTypes: { timeRangeChanged: { action: 'timeRangeChanged' } }
+
 }
 
-const Template = (args) => <TimeRange {...args} handleDateChanged={date => console.log(date)} />
+const Template = (args) => <TimeRange {...args} />
 
-export const OpenStory = Template.bind({})
+export const DefaultTimeRange = Template.bind({})
 
-OpenStory.args = {
+DefaultTimeRange.args = {
 }

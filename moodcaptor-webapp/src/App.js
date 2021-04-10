@@ -1,6 +1,9 @@
 import './App.css';
 
 import SurveyForm from './containers/moodsurvey/SurveyForm'
+import MenuTop from "./containers/menu/MenuTop"
+import GroupStats from "./pages/groupstats/GroupStats";
+
 import {ToastContainer} from 'react-toastify'
 
 import React, {useEffect} from "react";
@@ -12,42 +15,51 @@ import configureStore from "./redux/store";
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
-import {Link} from "react-router-dom";
-import {Route, Switch,} from "react-router";
+import {Route, Switch, useParams,} from "react-router";
 import {ConnectedRouter} from 'connected-react-router'
 
 import "react-toastify/dist/ReactToastify.css"
 import {createBrowserHistory} from "history";
+import {groupSelected, timeRangeSelected} from "./redux/survey.actions";
+import {convertDateToString} from "./date_utils";
 
 const history = createBrowserHistory()
 
 const store = configureStore(history)
 
+function RouteToGroupStats() {
+    const {groupId} = useParams()
+
+    if (groupId) {
+        store.dispatch(groupSelected(groupId))
+        return (
+            <GroupStats key={groupId} groupId={groupId}/>
+        )
+    }
+    return ""
+}
+
 function App() {
 
-    useEffect(() => store.dispatch(fetchGroups()))
+    const now = convertDateToString(new Date())
+    
+    store.dispatch(timeRangeSelected(now, now))
+    store.dispatch(fetchGroups())
 
     return (
         <div className="App">
-            <CssBaseline/>
-            <Container maxWidth="md">
-                <Provider store={store}>
-                    <ConnectedRouter history={history}>
-                        <ul>
-                            <li>
-                                <Link to={"/function/moodcaptor-webapp/"}>Home</Link>
-                            </li>
-                            <li>
-                                <Link to={"/function/moodcaptor-webapp/stats"}>Stats</Link>
-                            </li>
-                        </ul>
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <CssBaseline/>
+                    <Container maxWidth="xl">
+                        <MenuTop/>
+
                         <Switch>
-                            <Route path={"/function/moodcaptor-webapp/stats"}>
-                                <p>Stats</p>
+                            <Route path={"/function/moodcaptor-webapp/:groupId/stats"}>
+                                <RouteToGroupStats/>
                             </Route>
-                            <Route exact={"/function/moodcaptor-webapp/"}>
-                                < SurveyForm/>
+                            <Route path={"/function/moodcaptor-webapp/"} exact>
+                                <SurveyForm/>
                             </Route>
                         </Switch>
                         <ToastContainer
@@ -61,9 +73,9 @@ function App() {
                             draggable
                             pauseOnHover
                         />
-                    </ConnectedRouter>
-                </Provider>
-            </Container>
+                    </Container>
+                </ConnectedRouter>
+            </Provider>
         </div>
     );
 }

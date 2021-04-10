@@ -1,38 +1,44 @@
 import React, {useState} from "react";
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns";
 
-const TimeRange = ({handleDateChanged}) => {
+import DateSelector from "../dateselector/DateSelector";
+import {convertStringToDate} from "../../date_utils";
 
-    let now = new Date();
-    const [selectedDate, setSelectedDate] = useState(now);
+const TimeRange = ({startDateSelected, endDateSelected, timeRangeChanged}) => {
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-        handleDateChanged(date)
-    };
+    const dateFns = new DateFnsUtils()
+    const definedStart = convertStringToDate(startDateSelected);
+    const definedEnd = convertStringToDate(endDateSelected);
+    const [start, setStart] = useState(definedStart)
+    const [end, setEnd] = useState(definedEnd)
+
+    const startChanged = newDate => {
+        let endDate = end
+        if (dateFns.isAfter(newDate, end)){
+            setEnd(newDate)
+            endDate = newDate
+        }
+        setStart(newDate)
+        timeRangeChanged(newDate, endDate)
+    }
+
+    const endChanged = newDate =>  {
+        let startDate = start
+        if (dateFns.isBefore(newDate, start)){
+            setStart(newDate)
+            startDate = newDate
+        }
+        setEnd(newDate)
+        timeRangeChanged(startDate, newDate)
+    }
 
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils} >
-            <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Mood date"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                }}
-            />
-        </MuiPickersUtilsProvider>
-    );
+        <>
+            <DateSelector label='start' date={definedStart} maxDate={definedEnd} handleDateChanged={date => startChanged(date)}/>
+            <DateSelector label='end' date={definedEnd} minDate={definedStart} handleDateChanged={date => endChanged(date)}/>
+        </>
+    )
+
 }
 
 export default TimeRange

@@ -1,52 +1,6 @@
-import React from "react";
-import StatsGraph from "./StatsGraph";
+import {getCurrentSurveyData} from "./survey.selectors";
 
-export default {
-    title: "Design/Atome/StatsGraph",
-    component: StatsGraph,
-    argTypes: {
-        voteColor: {
-            control: {
-                type: "color"
-            }
-        },
-        moodColor: {
-            control: {
-                type: "color"
-            }
-        }
-    }
-}
-
-const Template = (args) => <div style={{width: '100%', height: 300}}>
-    <StatsGraph {...args}  />
-</div>
-
-const config = [
-    {
-        label: "Very sad",
-        color: "#bc2323"
-    },
-    {
-        label: "Sad",
-        color: "#e97210"
-    },
-    {
-        label: "Neutral",
-        color: "#2091b7"
-    },
-    {
-        label: "Nice",
-        color: "#dab80c"
-    },
-    {
-        label: "Very happy",
-        color: "#4fcd7e"
-    }
-]
-
-
-const data = [
+const defaultSurvey = [
     {
         date: '01/03/2021',
         votes: [
@@ -56,7 +10,7 @@ const data = [
             {rate: 4, nbVotes: 8},
             {rate: 5, nbVotes: 1}
         ],
-        avg: 3
+        avg: 3.13
     },
     {
         date: '02/03/2021',
@@ -67,7 +21,7 @@ const data = [
             {rate: 4, nbVotes: 2},
             {rate: 5, nbVotes: 0}
         ],
-        avg: 3
+        avg: 3.56
     },
     {
         date: '03/03/2021',
@@ -78,7 +32,7 @@ const data = [
             {rate: 4, nbVotes: 0},
             {rate: 5, nbVotes: 9}
         ],
-        avg: 3
+        avg: 5
     },
     {
         date: '04/03/2021',
@@ -89,7 +43,7 @@ const data = [
             {rate: 4, nbVotes: 4},
             {rate: 5, nbVotes: 0}
         ],
-        avg: 3
+        avg: 3.13
     },
     {
         date: '05/03/2021',
@@ -100,13 +54,38 @@ const data = [
             {rate: 4, nbVotes: 10},
             {rate: 5, nbVotes: 2}
         ],
-        avg: 3
+        avg: 3.56
     }
-];
+]
 
-export const OneWeekStatsGraph = Template.bind({})
-
-OneWeekStatsGraph.args = {
-    data: data,
-    configSurvey: config
+const defaultStore = {
+    survey: {
+        surveys: {
+            'azerty': defaultSurvey
+        },
+        current_group_selected: "azerty",
+        current_begin_selected: "01/03/2021",
+        current_end_selected: "05/03/2021"
+    }
 }
+
+describe('survey selector', () => {
+    it('should select current survey',  () => {
+        expect(getCurrentSurveyData(defaultStore))
+            .toEqual(defaultSurvey)
+    });
+
+    it('should select surveys of current group with subset of survey',  () => {
+        const currentSurveyData = getCurrentSurveyData({
+            ...defaultStore,
+            survey: {
+                ...defaultStore.survey,
+                current_end_selected: '04/03/2021'
+            }
+        });
+        expect(currentSurveyData)
+            .not.toBeNull()
+        expect(currentSurveyData).toHaveLength(4)
+    });
+
+})

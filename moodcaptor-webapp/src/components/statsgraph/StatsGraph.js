@@ -17,30 +17,16 @@ import {
 
 const StatsGraph = ({
                         data,
-                        votesColors,
+                        configSurvey,
                         moodColor = "#ff7300"
                     }) => {
 
-    const compute_avg = votes => {
-        const coefficient = votes.reduce((a, b) => a + b, 0)
-        const values = votes.map((item, index) => item * (index+1))
-            .reduce((a, b) => a + b, 0)
-        return values / coefficient
-    }
-
-    const computed_data = data.map(entry => {
-        return {
-            ...entry,
-            avg: compute_avg(entry.votes)
-        }
-    })
-
-    const first_entry = computed_data[0]
+    const first_entry = data[0]
 
     return (
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer>
             <ComposedChart
-                data={computed_data}
+                data={data}
                 margin={{
                     top: 20,
                     right: 20,
@@ -97,7 +83,7 @@ const StatsGraph = ({
                     }}
                 />
                 <Legend
-                    itemStyle={{
+                    wrapperStyle={{
                         fontSize: '1rem',
                         fontFamily: 'Times New Roman',
                     }}
@@ -108,12 +94,13 @@ const StatsGraph = ({
                         (x, i) => {
                             return (
                                 <Bar
-                                    dataKey={"votes[" + i + "]"}
-                                    name={"mood rate " + (i + 1)}
+                                    key={`rate-${i}`}
+                                    dataKey={"votes[" + i + "].nbVotes"}
+                                    name={configSurvey[i].label}
                                     barSize={20}
                                     stackId={"vote"}
                                     yAxisId={"left"}
-                                    fill={votesColors[i]}
+                                    fill={configSurvey[i].color}
                                 />
                             )
                         })
@@ -121,6 +108,7 @@ const StatsGraph = ({
                 <Line
                     type="monotone"
                     dataKey="avg"
+                    name="Mood trend"
                     yAxisId={"right"}
                     stroke={moodColor}
                 />
@@ -131,7 +119,7 @@ const StatsGraph = ({
 
 StatsGraph.propTypes = {
     data: PropTypes.array.isRequired,
-    voteColor: PropTypes.string,
+    configSurvey: PropTypes.array.isRequired,
     moodColor: PropTypes.string,
 }
 

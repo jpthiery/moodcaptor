@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
 
-const Group = ({groups, groupSelected}) => {
+const Group = ({groups, initialGroupSelected='', groupSelected}) => {
 
-    const defaultSelectedGroup = groups.length > 0 ? groups[0].id : ""
-    const [selectedItem, setSelectedItem] = useState(defaultSelectedGroup)
+    const [selectedItem, setSelectedItem] = useState(initialGroupSelected)
 
     const handleGroupChanged = (event) => {
         groupSelected(event.target.value)
@@ -18,9 +18,9 @@ const Group = ({groups, groupSelected}) => {
                 select
                 label="Group"
                 fullWidth
+                defaultValue={initialGroupSelected}
                 value={selectedItem}
                 onChange={e => handleGroupChanged(e)}
-                helperText="Please select your group"
                 variant="outlined"
             >
                 {groups.map((option) => (
@@ -31,6 +31,10 @@ const Group = ({groups, groupSelected}) => {
             </TextField>
         ) :
         ("")
+}
+
+Group.propTypes = {
+    groups: PropTypes.array.isRequired
 }
 
 export default Group
