@@ -6,13 +6,12 @@ import MoodStats from "../../containers/moodstats/MoodStats";
 import {currentBegin, currentEnd, getCurrentSurveyData} from "../../redux/survey.selectors";
 import {fetchSurvey} from "./actions";
 
-export const GroupStats = ({groupId, begin, end, surveys}) => {
+export const GroupStats = ({groupId, begin, end, surveys, fetchSurvey}) => {
 
     console.log(`GroupStats surveys ${groupId} ->${surveys}<- ${begin} ${end}`)
 
     const [fetchDataRequested, requestFetchData] = useState(false)
 
-    const dispatch = useDispatch()
     useEffect(() => {
         if ((surveys === undefined || surveys.length === 0) &&
             groupId &&
@@ -22,7 +21,7 @@ export const GroupStats = ({groupId, begin, end, surveys}) => {
                 groupId,
                 begin,
                 end
-            )(dispatch)
+            )
             requestFetchData(true)
         }
     })
@@ -74,5 +73,5 @@ export const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {}
+    {fetchSurvey}
 )(GroupStats)

@@ -1,5 +1,5 @@
 import reducer from "./survey"
-import {surveyReceived} from "../survey.actions";
+import {surveyReceived, timeRangeSelected} from "../survey.actions";
 
 
 const data = [
@@ -215,4 +215,16 @@ describe('survey reducer', () => {
             current_end_selected: "06/03/2021"
         })
     });
+
+    it('should change timerange selected', () => {
+        expect(reducer(
+            undefined,
+            timeRangeSelected("01/04/2021","02/04/2021")
+        )).toEqual({
+            surveys: {},
+            current_group_selected: "",
+            current_begin_selected: "01/04/2021",
+            current_end_selected: "02/04/2021"
+        })
+    })
 })

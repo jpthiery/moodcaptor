@@ -1,4 +1,4 @@
-import {GROUP_SELECTED, RESPONSE_SURVEY} from "../actionTypes";
+import {GROUP_SELECTED, RESPONSE_SURVEY, TIMERANGE_SELECTED} from "../actionTypes";
 import {compute_avg} from "../../utils";
 import {convertStringToDate} from "../../date_utils";
 import DateFnsUtils from '@date-io/date-fns';
@@ -12,7 +12,7 @@ const initialState = {
     current_end_selected: ""
 }
 
-const sortByDate = votes => votes.sort((a, b) => dateFns.isBefore(
+const sortByDate = votes => votes.sort((a, b) => dateFns.isAfter(
     convertStringToDate(a.date),
     convertStringToDate(b.date)
     )
@@ -50,6 +50,14 @@ const reduce = (state = initialState, action) => {
             return {
                 ...state,
                 current_group_selected: groupIdSelected
+            }
+        case TIMERANGE_SELECTED:
+            const timerange_start = action.payload.start
+            const timerange_end = action.payload.end
+            return {
+                ...state,
+                current_begin_selected: timerange_start,
+                current_end_selected: timerange_end
             }
         default:
             return state

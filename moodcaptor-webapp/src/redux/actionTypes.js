@@ -2,8 +2,7 @@
 export const REQUEST_GROUP_LIST = "group/REQUEST_GROUP_LIST"
 export const RESPONSE_GROUP_LIST = "group/RESPONSE_GROUP_LIST"
 
-export const NAVIGATE_TO = "NAVIGATE_TO"
-export const NAVIGATE_RESET = "NAVIGATE_RESET"
 
 export const GROUP_SELECTED = "survey/GROUP_SELECTED"
+export const TIMERANGE_SELECTED = "survey/TIMERANGE_SELECTED"
 export const RESPONSE_SURVEY = "survey/RESPONSE_SURVEY"

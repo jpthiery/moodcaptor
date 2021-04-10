@@ -10,13 +10,23 @@ import Typography from "@material-ui/core/Typography";
 import {connect} from "react-redux";
 
 import Group from "../../components/group/Group";
+import TimeRange from "../../components/timerange/TimeRange";
 
-import {home, stats, statsGroup} from "./actions"
+import {home, stats, statsGroup, timeRangeChanged} from "./actions"
 
 import {existingGroups} from "../../redux/groups.selectors";
-import {currentGroup} from "../../redux/survey.selectors";
+import {currentBegin, currentEnd, currentGroup} from "../../redux/survey.selectors";
 
-export const MenuTop = ({groupSelectable, groupSelected, gotoStats, gotoHome, gotoStatsGroup}) => {
+export const MenuTop = ({
+                            groupSelectable,
+                            groupSelected,
+                            startDate,
+                            endDate,
+                            gotoStats,
+                            gotoHome,
+                            gotoStatsGroup,
+                            timeRangeChanged
+                        }) => {
 
     const groupInput = (groupSelectable !== undefined && groupSelectable.length > 0) ?
         <Group
@@ -29,24 +39,21 @@ export const MenuTop = ({groupSelectable, groupSelected, gotoStats, gotoHome, go
     return (
         <AppBar position="static" style={{marginBottom: '10px'}}>
             <Toolbar>
-                <IconButton
-                    edge={"start"}
-                >
-                    <HomeIcon
-                        onClick={e => gotoHome()}
-                    />
+                <IconButton edge={"start"} color="inherit">
+                    <HomeIcon onClick={e => gotoHome()}/>
                 </IconButton>
-                <IconButton
-                    edge={"start"}
-                >
-                    <TimelineIcon
-                        onClick={e => gotoStats()}
-                    />
+                <IconButton edge={"start"} color="inherit">
+                    <TimelineIcon onClick={e => gotoStats()}/>
                 </IconButton>
-                <Typography variant={"h6"}>
+                <Typography variant={"h6"} color={"inherit"}>
                     MoodCaptor
                 </Typography>
                 {groupInput}
+                <TimeRange
+                    startDateSelected={startDate}
+                    endDateSelected={endDate}
+                    timeRangeChanged={(start, end) => timeRangeChanged(start, end)}
+                />
             </Toolbar>
         </AppBar>
     )
@@ -54,9 +61,13 @@ export const MenuTop = ({groupSelectable, groupSelected, gotoStats, gotoHome, go
 export const mapStateToProps = state => {
     const groupSelectable = existingGroups(state)
     const groupSelected = currentGroup(state)
+    const startDate = currentBegin(state)
+    const endDate = currentEnd(state)
     return {
         groupSelectable,
-        groupSelected
+        groupSelected,
+        startDate,
+        endDate
     }
 }
 
@@ -65,6 +76,7 @@ export default connect(
     {
         gotoStats: stats,
         gotoHome: home,
-        gotoStatsGroup: statsGroup
+        gotoStatsGroup: statsGroup,
+        timeRangeChanged
     }
 )(MenuTop)

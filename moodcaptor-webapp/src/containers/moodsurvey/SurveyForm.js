@@ -44,7 +44,10 @@ export const SurveyForm = ({groupSelectable, submitMood}) => {
     return (
         <Card>
             <CardContent>
-                <DateSelector handleDateChanged={handleDate}/>
+                <DateSelector
+                    maxDate={new Date()}
+                    handleDateChanged={handleDate}
+                />
                 {groupInput}
                 <MoodRate
                     maxLevel={5}

@@ -20,7 +20,8 @@ import {ConnectedRouter} from 'connected-react-router'
 
 import "react-toastify/dist/ReactToastify.css"
 import {createBrowserHistory} from "history";
-import {groupSelected} from "./redux/survey.actions";
+import {groupSelected, timeRangeSelected} from "./redux/survey.actions";
+import {convertDateToString} from "./date_utils";
 
 const history = createBrowserHistory()
 
@@ -28,10 +29,9 @@ const store = configureStore(history)
 
 function RouteToGroupStats() {
     const {groupId} = useParams()
-    useEffect(() => {
-        if (groupId) store.dispatch(groupSelected(groupId))
-    })
+
     if (groupId) {
+        store.dispatch(groupSelected(groupId))
         return (
             <GroupStats key={groupId} groupId={groupId}/>
         )
@@ -41,9 +41,10 @@ function RouteToGroupStats() {
 
 function App() {
 
-    useEffect(() => {
-        store.dispatch(fetchGroups())
-    })
+    const now = convertDateToString(new Date())
+    
+    store.dispatch(timeRangeSelected(now, now))
+    store.dispatch(fetchGroups())
 
     return (
         <div className="App">
@@ -55,7 +56,7 @@ function App() {
 
                         <Switch>
                             <Route path={"/function/moodcaptor-webapp/:groupId/stats"}>
-                                <RouteToGroupStats />
+                                <RouteToGroupStats/>
                             </Route>
                             <Route path={"/function/moodcaptor-webapp/"} exact>
                                 <SurveyForm/>

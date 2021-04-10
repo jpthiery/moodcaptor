@@ -6,13 +6,16 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const DateSelector = ({label = "Mood date", handleDateChanged}) => {
+const DateSelector = ({
+                          date = new Date(),
+                          label = "Mood date",
+                          minDate,
+                          maxDate,
+                          handleDateChanged
+                      }) => {
 
-    let now = new Date();
-    const [selectedDate, setSelectedDate] = useState(now);
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
         handleDateChanged(date)
     };
 
@@ -25,8 +28,11 @@ const DateSelector = ({label = "Mood date", handleDateChanged}) => {
                 margin="normal"
                 id="date-picker-inline"
                 label={label}
-                value={selectedDate}
+                value={date}
                 onChange={handleDateChange}
+                disableFuture
+                minDate={minDate}
+                maxDate={maxDate}
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
                 }}
