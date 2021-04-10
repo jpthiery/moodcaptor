@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 import {compute_avg} from "../../utils";
 
@@ -35,6 +36,9 @@ export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
         bodyContent =
             <div className={classes.root}>
                 <CircularProgress/>
+                <Typography variant={"h4"} >
+                    We are currently fetching yours moods.
+                </Typography>
             </div>
 
     } else {
