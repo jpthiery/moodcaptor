@@ -6,7 +6,7 @@ import GroupStats from "./pages/groupstats/GroupStats";
 
 import {ToastContainer} from 'react-toastify'
 
-import React, {useEffect} from "react";
+import React from "react";
 import {Provider} from "react-redux";
 import {fetchGroups} from './redux/api.actions'
 

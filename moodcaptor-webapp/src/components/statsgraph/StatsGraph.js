@@ -13,7 +13,7 @@ import {
     XAxis,
     YAxis
 } from 'recharts';
-
+import translate from "../../translations";
 
 const StatsGraph = ({
                         data,
@@ -22,6 +22,7 @@ const StatsGraph = ({
                     }) => {
 
     const first_entry = data[0]
+    const t = translate.use().StatsGraph
 
     return (
         <ResponsiveContainer>
@@ -51,7 +52,7 @@ const StatsGraph = ({
                     yAxisId={"left"}
                 >
                     <Label
-                        value="Nb votes"
+                        value={t.nbVotes}
                         position="insideRight"
                         angle={-90}
                         style={{textAnchor: 'middle'}}
@@ -66,7 +67,7 @@ const StatsGraph = ({
                     orientation={"right"}
                 >
                     <Label
-                        value="Average mood"
+                        value={t.trendMood}
                         position="insideLeft"
                         angle={-90}
                         style={{textAnchor: 'middle'}}

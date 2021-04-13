@@ -11,11 +11,13 @@ import {connect} from "react-redux";
 
 import Group from "../../components/group/Group";
 import TimeRange from "../../components/timerange/TimeRange";
+import Language from "../../components/language/Language";
 
 import {home, stats, statsGroup, timeRangeChanged} from "./actions"
 
 import {existingGroups} from "../../redux/groups.selectors";
 import {currentBegin, currentEnd, currentGroup} from "../../redux/survey.selectors";
+import {changeToNextLanguage, useLanguageAvailable} from "../../translations";
 
 export const MenuTop = ({
                             groupSelectable,
@@ -36,6 +38,8 @@ export const MenuTop = ({
         /> :
         null
 
+    const flipLanguage = () => changeToNextLanguage()
+
     return (
         <AppBar position="static" style={{marginBottom: '10px'}}>
             <Toolbar>
@@ -54,6 +58,7 @@ export const MenuTop = ({
                     endDateSelected={endDate}
                     timeRangeChanged={(start, end) => timeRangeChanged(start, end)}
                 />
+                <Language flipLanguage={flipLanguage} initialLanguage={useLanguageAvailable()} />
             </Toolbar>
         </AppBar>
     )

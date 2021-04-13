@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
+import translate from "../../translations";
 
 const Group = ({groups, initialGroupSelected='', groupSelected}) => {
 
     const [selectedItem, setSelectedItem] = useState(initialGroupSelected)
+    const t = translate.use().Groups
 
     const handleGroupChanged = (event) => {
         groupSelected(event.target.value)
@@ -16,7 +18,7 @@ const Group = ({groups, initialGroupSelected='', groupSelected}) => {
             <TextField
                 id="outlined-select-currency"
                 select
-                label="Group"
+                label={t.group}
                 fullWidth
                 defaultValue={initialGroupSelected}
                 value={selectedItem}

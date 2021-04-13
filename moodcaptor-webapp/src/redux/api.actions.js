@@ -16,7 +16,6 @@ const fetchGroups = () => dispatch => {
         .then(response => {
             response.json()
                 .then(json => {
-                    console.log(json)
                     dispatch(groupReceived(json))
                 })
         })
