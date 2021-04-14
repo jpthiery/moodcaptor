@@ -14,12 +14,15 @@ import CardActions from "@material-ui/core/CardActions";
 import {existingGroups} from "../../redux/groups.selectors";
 import {submitMood} from "./actions";
 
+import translate from "../../translations";
+
 export const SurveyForm = ({groupSelectable, submitMood}) => {
 
     const [moodDate, setMoodDate] = useState(new Date())
     const initialRate = 0
     const [moodRate, setMoodRate] = useState(initialRate)
     const [group, setGroup] = useState(groupSelectable.length > 0 ? groupSelectable[0].id : "")
+    const t = translate.use().SurveyForm
 
     const handleDate = date => {
         setMoodDate(date)
@@ -60,7 +63,7 @@ export const SurveyForm = ({groupSelectable, submitMood}) => {
                     variant={"contained"}
                     color={"primary"}
                     onClick={e => handleSubmit(e)}>
-                    Mooder
+                    {t.submitAction}
                 </Button>
             </CardActions>
         </Card>

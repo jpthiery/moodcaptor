@@ -13219,6 +13219,11 @@ react-resize-detector@^6.6.3:
     lodash.throttle "^4.1.1"
     resize-observer-polyfill "^1.5.1"
 
+react-ridge-translations@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-ridge-translations/-/react-ridge-translations-1.0.4.tgz#08bedcafef715ebac2170659a2e55afa6d619d80"
+  integrity sha512-gRxLHQbG0TUgTrnj1blAH63bzus5Pyf51cSF+YWTpk6CLgfCsr7nZ/FEIx3WK3mip7hFBlsdk3IUN8ipZ1LRVg==
+
 react-router-dom@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"

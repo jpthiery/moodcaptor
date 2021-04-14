@@ -21,7 +21,7 @@ const sortByDate = votes => votes.sort((a, b) => dateFns.isAfter(
 const reduce = (state = initialState, action) => {
     switch (action.type) {
         case RESPONSE_SURVEY:
-            const {body, begin, end, groupId} = action.payload
+            const {body, groupId} = action.payload
             const dataExisting = state.surveys[groupId] || []
             const onlyNewData = body.map(entry => {
                 const dataExist = dataExisting.filter(existing => existing.date === entry.date)
@@ -41,11 +41,7 @@ const reduce = (state = initialState, action) => {
                 surveys: {
                     ...state.surveys,
                     [groupId]: data
-                },
-                /*
-                current_begin_selected: begin,
-                current_end_selected: end,
-                 */
+                }
             }
         case GROUP_SELECTED:
             const groupIdSelected = action.payload.groupId

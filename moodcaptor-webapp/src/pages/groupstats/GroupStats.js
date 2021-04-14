@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 
 import MoodStats from "../../containers/moodstats/MoodStats";
 
+import translate from "../../translations";
+
 import {currentBegin, currentEnd, getCurrentSurveyData} from "../../redux/survey.selectors";
 import {fetchSurvey} from "./actions";
 import {convertStringToDate} from "../../date_utils";
@@ -10,7 +12,9 @@ import DateFnsUtils from "@date-io/date-fns";
 
 const dateFns = new DateFnsUtils()
 
+
 export const surveyMustBeFetch = (groupId, begin, end, surveyResult, fetchDataRequested) => {
+
     if (
         (surveyResult === undefined || surveyResult.length === 0) &&
         !fetchDataRequested) {
@@ -42,7 +46,7 @@ export const GroupStats = ({groupId, begin, end, surveys, fetchSurvey}) => {
                 end
             )
         }
-    })
+    }, [groupId, begin, end, surveys, fetchDataRequested, fetchSurvey])
 
     const configSurvey = [
         {
@@ -67,9 +71,11 @@ export const GroupStats = ({groupId, begin, end, surveys, fetchSurvey}) => {
         }
     ]
 
+    const t = translate.use().GroupStats
+
     return (
         <>
-            <p>mood stats for group {begin} - {end}</p>
+            <p>{t.statsHeader(begin, end)}</p>
             <MoodStats
                 configSurvey={configSurvey}
             />
@@ -92,3 +98,4 @@ export default connect(
     mapStateToProps,
     {fetchSurvey}
 )(GroupStats)
+

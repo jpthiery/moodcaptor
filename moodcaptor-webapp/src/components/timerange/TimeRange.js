@@ -4,13 +4,17 @@ import DateFnsUtils from "@date-io/date-fns";
 import DateSelector from "../dateselector/DateSelector";
 import {convertStringToDate} from "../../date_utils";
 
+import translate from "../../translations"
+
 const TimeRange = ({startDateSelected, endDateSelected, timeRangeChanged}) => {
 
     const dateFns = new DateFnsUtils()
+
     const definedStart = convertStringToDate(startDateSelected);
     const definedEnd = convertStringToDate(endDateSelected);
     const [start, setStart] = useState(definedStart)
     const [end, setEnd] = useState(definedEnd)
+    const t = translate.use().TimeRange
 
     const startChanged = newDate => {
         let endDate = end
@@ -34,8 +38,8 @@ const TimeRange = ({startDateSelected, endDateSelected, timeRangeChanged}) => {
 
     return (
         <>
-            <DateSelector label='start' date={definedStart} maxDate={definedEnd} handleDateChanged={date => startChanged(date)}/>
-            <DateSelector label='end' date={definedEnd} minDate={definedStart} handleDateChanged={date => endChanged(date)}/>
+            <DateSelector label={t.start} date={definedStart} maxDate={definedEnd} handleDateChanged={date => startChanged(date)}/>
+            <DateSelector label={t.end} date={definedEnd} minDate={definedStart} handleDateChanged={date => endChanged(date)}/>
         </>
     )
 

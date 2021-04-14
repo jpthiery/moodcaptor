@@ -78,7 +78,7 @@ const data = [
             {rate: 4, nbVotes: 0},
             {rate: 5, nbVotes: 9}
         ],
-        avg: 3
+        avg: 5
     },
     {
         date: '04/03/2021',

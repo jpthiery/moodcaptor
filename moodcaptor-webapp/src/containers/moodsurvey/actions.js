@@ -1,5 +1,6 @@
 import {gotoStats} from "../../redux/nav.actions";
 import {toast} from "react-toastify";
+import translate from "../../translations";
 
 export const submitMood = (groupId, day, rate) => dispatch => {
     fetch(`/function/moodcaptor-submit`, {
@@ -24,7 +25,8 @@ export const submitMood = (groupId, day, rate) => dispatch => {
             dispatch(gotoStats)
         })
         .catch(reason => {
-            toast.error(`Your mood had not been submitted:` + reason, {
+            const t = translate.translations.SurveyForm
+            toast.error( t.submitError(reason), {
                 position: "bottom-center",
                 type: "error",
                 autoClose: 5000

@@ -15,6 +15,7 @@ import {compute_avg} from "../../utils";
 import {makeStyles} from '@material-ui/core/styles';
 import {connect} from "react-redux";
 import {getCurrentSurveyData} from "../../redux/survey.selectors";
+import translate from "../../translations";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
 
     const classes = useStyles();
+    const t = translate.use().MoodStats
 
     let title = ''
     let bodyContent = null
@@ -37,7 +39,7 @@ export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
             <div className={classes.root}>
                 <CircularProgress/>
                 <Typography variant={"h4"} >
-                    We are currently fetching yours moods.
+                    {t.loading}
                 </Typography>
             </div>
 

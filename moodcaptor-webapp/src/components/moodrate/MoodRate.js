@@ -2,6 +2,9 @@ import React, {useState} from "react";
 
 import {Layer, Stage, Star} from "react-konva";
 import Typography from "@material-ui/core/Typography";
+
+import translate from "../../translations";
+
 import PropTypes from "prop-types";
 
 const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
@@ -26,6 +29,7 @@ const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
     const totalWidth = maxLevel * widthItem
 
     const [rateItemsState, setRateItemsState] = useState(rateItemsValues)
+    const t = translate.use().MoodRate
 
 
     const handleItemSelected = (rate) => {
@@ -65,7 +69,7 @@ const MoodRate = ({maxLevel, initialRate = 0, handleRate}) => {
 
     return (
         <>
-            <Typography variant={"body1"} >Rate :</Typography>
+            <Typography variant={"body1"} >{t.rate} :</Typography>
             <Stage width={totalWidth} height={heightItem}>
                 <Layer>
                     {rateItems}
