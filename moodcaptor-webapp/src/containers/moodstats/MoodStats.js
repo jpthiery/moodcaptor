@@ -9,6 +9,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import {useTheme} from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import {compute_avg} from "../../utils";
 
@@ -29,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
 export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
 
     const classes = useStyles();
+    const theme = useTheme();
+    const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'));
     const t = translate.use().MoodStats
 
     let title = ''
@@ -38,7 +42,7 @@ export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
         bodyContent =
             <div className={classes.root}>
                 <CircularProgress/>
-                <Typography variant={"h4"} >
+                <Typography variant={"h4"}>
                     {t.loading}
                 </Typography>
             </div>
@@ -71,22 +75,27 @@ export const MoodStats = ({data, configSurvey, moodColor = "#671f86"}) => {
             votes: aggregatedVotes
         }
 
+        const flexDir = isSmallDevice ? "column" : "row"
+        const widthBox = isSmallDevice ? ["100%", "100%"] : ["80%", "20%"]
+
         bodyContent =
-            <div style={{width: '100%', height: 400}}>
-                <Box display="flex" flexDirection="row" p={1} m={1} bgcolor="background.paper"
-                     style={{height: '100%'}}>
-                    <Box p={1} width="80%">
-                        <StatsGraph data={data} configSurvey={configSurvey} moodColor={moodColor}/>
-                    </Box>
-                    <Box p={1} width="20%">
-                        <StatsMoodPie
-                            data={aggregateData}
-                            configSurvey={configSurvey}
-                            avgColor={moodColor}
-                        />
-                    </Box>
+            <Box display="flex"
+                 flexDirection={flexDir}
+                 p={1} m={1}
+                 bgcolor="background.paper"
+            >
+                <Box p={1} width={widthBox[0]} height={400}>
+                    <StatsGraph data={data} configSurvey={configSurvey} moodColor={moodColor}/>
                 </Box>
-            </div>
+                <Box p={1} width={widthBox[1]} height={400}>
+                    <StatsMoodPie
+                        data={aggregateData}
+                        configSurvey={configSurvey}
+                        avgColor={moodColor}
+                    />
+                </Box>
+            </Box>
+
     }
 
     return (
